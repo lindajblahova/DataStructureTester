@@ -19,12 +19,15 @@ int main()
 	Scenarios* scenario;
 	char runTester = 'y';
 
+	srand(time(NULL));
+
 	while (runTester == 'y')
 	{
 		cout << "Struktury ktore mozno testovat:" << endl;
 		cout << "_____________________" << endl;
+		cout << "+---+---------------+" << endl;
 		cout << "| 0 |   ArrayList   |" << endl;
-		cout << "---------------------" << endl;
+		cout << "+---+---------------+" << endl;
 		cout << "| 1 |  LinkedList   |" << endl;
 		cout << "---------------------" << endl;
 		cout << "Zadajte cislo struktury ktoru chcete testovat:" << endl;
@@ -36,38 +39,37 @@ int main()
 			{
 				break;
 			}
-			else
-			{
-				cout << "Zadana struktura neexistuje! Vyberte inu strukturu:" << endl;
-				cin >> structureToTest;
-			}
+			cout << "Zadana struktura neexistuje! Vyberte inu strukturu:" << endl;
+			cin >> structureToTest;
 		}
 
 		cout << "Vyberte scenar, ktory chcete testovat:" << endl;
 		cout << "______________________________________________" << endl;
+		cout << "+--------+--------+--------+--------+--------+" << endl;
 		cout << "| Scenar |  Vloz  |  Zrus  | Nastav | Index  |" << endl;
-		cout << "----------------------------------------------" << endl;
+		cout << "+--------+--------+--------+--------+--------+" << endl;
 
 		switch (structureToTest)
 		{
 		case 0: case 1:
 			cout << "|   A    |   20   |   20   |   50   |   10   |" << endl;
-			cout << "----------------------------------------------" << endl;
+			cout << "+--------+--------+--------+--------+--------+" << endl;
 			cout << "|   B    |   35   |   35   |   20   |   10   |" << endl;
-			cout << "----------------------------------------------" << endl;
+			cout << "+--------+--------+--------+--------+--------+" << endl;
 			cout << "|   C    |   45   |   45   |   5    |   5    |" << endl;
 			break;
 
 		default:
 			break;
 		}
-		cout << "----------------------------------------------" << endl;
+		cout << "+--------+--------+--------+--------+--------+" << endl;
 		cout << "Zadajte male pismeno vybraneho scenaru: " << endl;
 		cin >> scenarioToTest;
 
 		while (true)
 		{
-			if (structureToTest == 0 && (scenarioToTest == 'a') || (scenarioToTest == 'b') || (scenarioToTest == 'c'))
+			if ((structureToTest == 0 || structureToTest == 1) && 
+				(scenarioToTest == 'a') || (scenarioToTest == 'b') || (scenarioToTest == 'c'))
 			{
 				scenario = new Scenarios(scenarioToTest);
 				break;
@@ -80,7 +82,6 @@ int main()
 		}
 
 
-
 		if (structureToTest == 0)
 		{
 			ArrayList<int>* arrayList = new ArrayList<int>();
@@ -88,6 +89,7 @@ int main()
 			cout << testing << endl;
 			Tests<int>::ListTest(arrayList, scenario, fileName);
 			cout << "Vysledky testu su ulozene v subore: " << fileName << endl;
+			delete arrayList;
 		}
 
 		if (structureToTest == 1)
@@ -97,6 +99,7 @@ int main()
 			cout << testing << endl;
 			Tests<int>::ListTest(linkedList, scenario, fileName);
 			cout << "Vysledky testu su ulozene v subore: " << fileName << endl;
+			delete linkedList;
 		}
 
 		cout << "---------------------------------------------------------------" << endl;

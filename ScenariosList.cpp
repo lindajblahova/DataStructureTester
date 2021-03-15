@@ -1,6 +1,7 @@
 #include "ScenariosList.h"
 
 #include <algorithm>
+#include <iostream>
 
 Scenarios::Scenarios(char scenario)
 {
@@ -35,24 +36,24 @@ Scenarios::Scenarios(char scenario)
 		//TODO: ???
 		break;
 	}
+	
 
-
-	for (int i = 0; i < insertO; i++) 
+	for (int i = 0; i < 20; i++) 
 	{
 		(*ratio)[i] = 0;
 	}
 
-	for (int i = insertO; i < deleteO; i++)
+	for (int i = insertO; i < insertO + deleteO ; i++)
 	{
 		(*ratio)[i] = 1;
 	}
 
-	for (int i = deleteO; i < getSetO; i++)
+	for (int i = insertO + deleteO; i < insertO + deleteO + getSetO; i++)
 	{
 		(*ratio)[i] = 2;
 	}
 
-	for (int i = getSetO; i < indexO; i++)
+	for (int i = insertO + deleteO + getSetO; i < insertO + deleteO + getSetO + indexO; i++)
 	{
 		(*ratio)[i] = 3;
 	}
@@ -76,13 +77,3 @@ Scenarios::~Scenarios()
 {
 	delete this->operations;
 }
-
-
-
-/*if (scenario == 'a')
-{
-	insertO = 20;
-	deleteO = 20;
-	getSetO = 50;
-	indexO = 10;
-}*/
