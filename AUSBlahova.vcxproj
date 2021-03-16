@@ -147,7 +147,7 @@
     <ClCompile Include="structures\vector\vector.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="ScenariosList.h" />
+    <ClInclude Include="Scenarios.h" />
     <ClInclude Include="structures\array\array.h" />
     <ClInclude Include="structures\ds_routines.h" />
     <ClInclude Include="structures\ds_structure_types.h" />

@@ -3,20 +3,21 @@
 #include "structures/array/array.h"
 #include "structures/list/array_list.h"
 #include "structures/list/linked_list.h"
-#include "ScenariosList.h"
+#include "Scenarios.h"
 #include "Tests.h"
 
 
 using namespace structures;
 using namespace std;
 
-int main() 
+int main()
 {
+	initHeapMonitor();
 	int structureToTest = -1;
 	char scenarioToTest = 'z';
 	const char* fileName = "default.csv";
 	const char* testing = "Prebieha test struktury...";
-	Scenarios* scenario;
+	Scenarios* scenario = nullptr;
 	char runTester = 'y';
 
 	srand(time(NULL));
@@ -68,7 +69,7 @@ int main()
 
 		while (true)
 		{
-			if ((structureToTest == 0 || structureToTest == 1) && 
+			if ((structureToTest == 0 || structureToTest == 1) &&
 				(scenarioToTest == 'a') || (scenarioToTest == 'b') || (scenarioToTest == 'c'))
 			{
 				scenario = new Scenarios(scenarioToTest);
@@ -80,7 +81,6 @@ int main()
 				cin >> scenarioToTest;
 			}
 		}
-
 
 		if (structureToTest == 0)
 		{
@@ -113,7 +113,13 @@ int main()
 				break;
 			}
 		}
+
+		if (scenario != nullptr)
+		{
+			delete scenario;
+		}
 	}
+
 
 
 	return 0;

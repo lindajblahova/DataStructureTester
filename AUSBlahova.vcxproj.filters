@@ -31,6 +31,9 @@
     <Filter Include="Header Files\tests\scenarios">
       <UniqueIdentifier>{495c1fa4-9282-4247-837b-1f24e6a32f27}</UniqueIdentifier>
     </Filter>
+    <Filter Include="structures\priority_queue">
+      <UniqueIdentifier>{ff76d24f-b370-4223-956b-e18fd6755b4e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -86,7 +89,7 @@
     <ClInclude Include="structures\ds_structure_types.h">
       <Filter>structures</Filter>
     </ClInclude>
-    <ClInclude Include="ScenariosList.h">
+    <ClInclude Include="Scenarios.h">
       <Filter>Header Files\tests\scenarios</Filter>
     </ClInclude>
     <ClInclude Include="Tests.h">
