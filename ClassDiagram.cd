@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="TestList&lt;T&gt;">
+    <Position X="3.25" Y="0.75" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAESAAAAAAoAAiIAAABAAAAAQAAAAAAIAEAAAAAAAUA=</HashCode>
+      <FileName>TestList.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TestArrayList&lt;T&gt;">
+    <Position X="4.75" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAACAAAAAAAQAAAAAABAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>TestArrayList.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TestLinkedList&lt;T&gt;">
+    <Position X="2.75" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAABAAAAAAAAAAAAAgAIAAAAAAAA=</HashCode>
+      <FileName>TestLinkedList.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Scenarios">
+    <Position X="7.75" Y="2.25" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAgAAEAAAAAAQEAEAAAEAAAAAAAAAAAI=</HashCode>
+      <FileName>Scenarios.h</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="operations" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="structures::Array&lt;T&gt;" Collapsed="true">
+    <Position X="12" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAACAAAAIAAAQhAAAEAAAJAAAAgEIAAAAA=</HashCode>
+      <FileName>structures\array\array.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
