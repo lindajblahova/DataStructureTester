@@ -139,27 +139,56 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="ADTTests.cpp" />
     <ClCompile Include="Main.cpp" />
-    <ClCompile Include="ScenariosList.cpp" />
+    <ClCompile Include="Scenarios.cpp" />
     <ClCompile Include="structures\ds_routines.cpp" />
     <ClCompile Include="structures\memory_routines.cpp" />
     <ClCompile Include="structures\structure.cpp" />
     <ClCompile Include="structures\vector\vector.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ADTTests.h" />
     <ClInclude Include="Scenarios.h" />
     <ClInclude Include="structures\array\array.h" />
     <ClInclude Include="structures\ds_routines.h" />
     <ClInclude Include="structures\ds_structure_types.h" />
     <ClInclude Include="structures\heap_monitor.h" />
     <ClInclude Include="structures\list\array_list.h" />
+    <ClInclude Include="structures\list\bidirectional_cyclic_linked_list.h" />
     <ClInclude Include="structures\list\linked_list.h" />
     <ClInclude Include="structures\list\list.h" />
+    <ClInclude Include="structures\matrix\coherent_matrix.h" />
+    <ClInclude Include="structures\matrix\incoherent_matrix.h" />
+    <ClInclude Include="structures\matrix\matrix.h" />
     <ClInclude Include="structures\memory_routines.h" />
+    <ClInclude Include="structures\priority_queue\heap.h" />
+    <ClInclude Include="structures\priority_queue\priority_queue.h" />
+    <ClInclude Include="structures\priority_queue\priority_queue_limited_sorted_array_list.h" />
+    <ClInclude Include="structures\priority_queue\priority_queue_linked_list.h" />
+    <ClInclude Include="structures\priority_queue\priority_queue_list.h" />
+    <ClInclude Include="structures\priority_queue\priority_queue_sorted_array_list.h" />
+    <ClInclude Include="structures\priority_queue\priority_queue_two_lists.h" />
+    <ClInclude Include="structures\priority_queue\priority_queue_unsorted_array_list.h" />
+    <ClInclude Include="structures\queue\explicit_queue.h" />
+    <ClInclude Include="structures\queue\implicit_queue.h" />
+    <ClInclude Include="structures\queue\queue.h" />
+    <ClInclude Include="structures\stack\explicit_stack.h" />
+    <ClInclude Include="structures\stack\implicit_stack.h" />
+    <ClInclude Include="structures\stack\stack.h" />
     <ClInclude Include="structures\structure.h" />
     <ClInclude Include="structures\structure_iterator.h" />
     <ClInclude Include="structures\vector\vector.h" />
-    <ClInclude Include="Tests.h" />
+    <ClInclude Include="TestArrayList.h" />
+    <ClInclude Include="TestBidirectionalCyclicLinkedList.h" />
+    <ClInclude Include="TestCoherentMatrix.h" />
+    <ClInclude Include="TestHeap.h" />
+    <ClInclude Include="TestIncoherentMatrix.h" />
+    <ClInclude Include="TestLinkedList.h" />
+    <ClInclude Include="TestList.h" />
+    <ClInclude Include="TestMatrix.h" />
+    <ClInclude Include="TestPriorityQueue.h" />
+    <ClInclude Include="TestPriorityQueueSortedArrayList.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />
