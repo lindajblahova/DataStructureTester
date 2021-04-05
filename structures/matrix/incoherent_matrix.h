@@ -17,35 +17,28 @@ namespace structures
 		IncoherentMatrix<T>& operator=(const IncoherentMatrix<T>& other);
 		T getDataOnIndex(const int rowIndex, const int colIndex) override;
 		void setDataOnIndex(const int rowIndex, const int colIndex, const T& data) override;
-		size_t getRows() override;
-		size_t getColumns() override;
-		size_t size() const override;
 		void clear() override;
 
-		//metody kvoli structure
 		Structure* clone() const override;
 
 	private:
 		Array<Array<T>*>* arrayOfArrays_;
-		size_t rows_;
-		size_t columns_;
 
 	};
 
 	template<typename T>
 	inline IncoherentMatrix<T>::IncoherentMatrix(size_t rows, size_t columns, T& data) :
-		arrayOfArrays_(new Array<Array<T>*>(rows)),
-		rows_(rows),
-		columns_(columns)
+		Matrix<T>::Matrix(rows, columns),
+		arrayOfArrays_(new Array<Array<T>*>(rows))
 	{
-		for (int i = 0; i < rows_; i++) //TODO: mozes to castovat na int, zbavis sa warnings
+		for (int i = 0; i < this->rows_; i++)
 		{
-			(*arrayOfArrays_)[i] = new Array<T>(columns_);
+			(*arrayOfArrays_)[i] = new Array<T>(this->columns_);
 		}
 
-		for (int i = 0; i < rows_; i++)
+		for (int i = 0; i < this->rows_; i++)
 		{
-			for (int j = 0; j < columns_; j++)
+			for (int j = 0; j < this->columns_; j++)
 			{
 				(*(*arrayOfArrays_)[i])[j] = data;
 			}
@@ -54,10 +47,13 @@ namespace structures
 
 	template<typename T>
 	inline IncoherentMatrix<T>::IncoherentMatrix(const IncoherentMatrix<T>& other) :
-		arrayOfArrays_(new Array<Array<T>*>(*(other.arrayOfArrays_))),
-		rows_(other.rows_),
-		columns_(other.columns_)
+		Matrix<T>(other.rows_, other.columns_),
+		arrayOfArrays_(new Array<Array<T>*>(*(other.arrayOfArrays_)))
 	{
+		for (int i = 0; i < this->rows_; i++)
+		{
+			(*arrayOfArrays_)[i] = new Array<T>(*(*other.arrayOfArrays_)[i]);
+		}
 	}
 
 	template<typename T>
@@ -82,8 +78,10 @@ namespace structures
 		if (this != &other)
 		{
 			clear();
+			this->rows_ = other.rows_;
+			this->columns_ = other.columns_;
 			arrayOfArrays_ = new Array<Array<T>*>(other.rows_);
-			for (int i = 0; i < rows_; i++)
+			for (int i = 0; i < this->rows_; i++)
 			{
 				(*arrayOfArrays_)[i] = new Array<T>((*(*other.arrayOfArrays_)[i]));
 			}
@@ -104,34 +102,17 @@ namespace structures
 	}
 
 	template<typename T>
-	inline size_t IncoherentMatrix<T>::getRows()
-	{
-		return rows_;
-	}
-
-	template<typename T>
-	inline size_t IncoherentMatrix<T>::getColumns()
-	{
-		return columns_;
-	}
-
-	template<typename T>
-	inline size_t IncoherentMatrix<T>::size() const
-	{
-		return rows_ * columns_;
-	}
-	template<typename T>
 	inline void IncoherentMatrix<T>::clear()
 	{
-		for (int i = 0; i < rows_; i++)
+		for (int i = 0; i < this->rows_; i++)
 		{
 			delete (*arrayOfArrays_)[i];
 			(*arrayOfArrays_)[i] = nullptr;
 		}
 		delete arrayOfArrays_;
 		arrayOfArrays_ = nullptr;
-		columns_ = 0;
-		rows_ = 0;
+		this->columns_ = 0;
+		this->rows_ = 0;
 	}
 	template<typename T>
 	inline Structure* IncoherentMatrix<T>::clone() const

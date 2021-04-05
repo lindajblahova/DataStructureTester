@@ -1,13 +1,8 @@
 ﻿  ADTTests.cpp
-D:\FRI\3 Letný\SemestralnaPraca1\AUSBlahova\ADTTests.cpp(34,21): warning C4018: '<': signed/unsigned mismatch
-D:\FRI\3 Letný\SemestralnaPraca1\AUSBlahova\ADTTests.cpp(70,48): warning C4018: '<': signed/unsigned mismatch
-D:\FRI\3 Letný\SemestralnaPraca1\AUSBlahova\TestList.h(53,7): warning C4101: 'validOperation': unreferenced local variable
-D:\FRI\3 Letný\SemestralnaPraca1\AUSBlahova\TestList.h(48): message : while compiling class template member function 'void TestList<T>::test(Scenarios *)'
-          with
-          [
-              T=int
-          ]
-D:\FRI\3 Letný\SemestralnaPraca1\AUSBlahova\ADTTests.cpp(215): message : see reference to function template instantiation 'void TestList<T>::test(Scenarios *)' being compiled
+D:\FRI\3 Letný\SemestralnaPraca1\AUSBlahova\ADTTests.cpp(117,23): warning C4018: '<': signed/unsigned mismatch
+D:\FRI\3 Letný\SemestralnaPraca1\AUSBlahova\ADTTests.cpp(73,7): warning C4101: 'number': unreferenced local variable
+D:\FRI\3 Letný\SemestralnaPraca1\AUSBlahova\TestList.h(45,14): warning C4309: 'initializing': truncation of constant value
+D:\FRI\3 Letný\SemestralnaPraca1\AUSBlahova\TestList.h(38): message : while compiling class template member function 'void TestList<T>::test(Scenarios *)'
           with
           [
               T=int
@@ -17,35 +12,48 @@ D:\FRI\3 Letný\SemestralnaPraca1\AUSBlahova\TestArrayList.h(8): message : see r
           [
               T=int
           ]
-D:\FRI\3 Letný\SemestralnaPraca1\AUSBlahova\ADTTests.cpp(199): message : see reference to class template instantiation 'TestArrayList<int>' being compiled
-D:\FRI\3 Letný\SemestralnaPraca1\AUSBlahova\TestMatrix.h(95,20): warning C4018: '<': signed/unsigned mismatch
-D:\FRI\3 Letný\SemestralnaPraca1\AUSBlahova\TestMatrix.h(87): message : while compiling class template member function 'void TestMatrix<T>::matrixAddition(structures::Matrix<T> *,structures::Matrix<T> *,structures::Matrix<T> *,std::ofstream &)'
+D:\FRI\3 Letný\SemestralnaPraca1\AUSBlahova\ADTTests.cpp(335): message : see reference to class template instantiation 'TestArrayList<int>' being compiled
+D:\FRI\3 Letný\SemestralnaPraca1\AUSBlahova\TestList.h(46,7): warning C4101: 'validOperation': unreferenced local variable
+D:\FRI\3 Letný\SemestralnaPraca1\AUSBlahova\TestPriorityQueue.h(46,14): warning C4309: 'initializing': truncation of constant value
+D:\FRI\3 Letný\SemestralnaPraca1\AUSBlahova\TestPriorityQueue.h(38): message : while compiling class template member function 'void TestPriorityQueue<T>::test(Scenarios *)'
           with
           [
               T=int
           ]
-D:\FRI\3 Letný\SemestralnaPraca1\AUSBlahova\TestMatrix.h(58): message : see reference to function template instantiation 'void TestMatrix<T>::matrixAddition(structures::Matrix<T> *,structures::Matrix<T> *,structures::Matrix<T> *,std::ofstream &)' being compiled
+D:\FRI\3 Letný\SemestralnaPraca1\AUSBlahova\TestHeap.h(7): message : see reference to class template instantiation 'TestPriorityQueue<T>' being compiled
+          with
+          [
+              T=int
+          ]
+D:\FRI\3 Letný\SemestralnaPraca1\AUSBlahova\ADTTests.cpp(352): message : see reference to class template instantiation 'TestHeap<int>' being compiled
+D:\FRI\3 Letný\SemestralnaPraca1\AUSBlahova\TestMatrix.h(105,20): warning C4018: '<': signed/unsigned mismatch
+D:\FRI\3 Letný\SemestralnaPraca1\AUSBlahova\TestMatrix.h(97): message : while compiling class template member function 'void TestMatrix<T>::matrixAddition(structures::Matrix<T> *,structures::Matrix<T> *,structures::Matrix<T> *,std::ofstream &)'
+          with
+          [
+              T=int
+          ]
+D:\FRI\3 Letný\SemestralnaPraca1\AUSBlahova\TestMatrix.h(63): message : see reference to function template instantiation 'void TestMatrix<T>::matrixAddition(structures::Matrix<T> *,structures::Matrix<T> *,structures::Matrix<T> *,std::ofstream &)' being compiled
           with
           [
               T=int
           ]
 D:\FRI\3 Letný\SemestralnaPraca1\AUSBlahova\TestCoherentMatrix.h(23): message : while compiling class template member function 'TestCoherentMatrix<int>::TestCoherentMatrix(void)'
-D:\FRI\3 Letný\SemestralnaPraca1\AUSBlahova\ADTTests.cpp(204): message : see reference to function template instantiation 'TestCoherentMatrix<int>::TestCoherentMatrix(void)' being compiled
-D:\FRI\3 Letný\SemestralnaPraca1\AUSBlahova\ADTTests.cpp(204): message : see reference to class template instantiation 'TestCoherentMatrix<int>' being compiled
-D:\FRI\3 Letný\SemestralnaPraca1\AUSBlahova\TestMatrix.h(97,21): warning C4018: '<': signed/unsigned mismatch
-D:\FRI\3 Letný\SemestralnaPraca1\AUSBlahova\TestMatrix.h(127,20): warning C4018: '<': signed/unsigned mismatch
-D:\FRI\3 Letný\SemestralnaPraca1\AUSBlahova\TestMatrix.h(116): message : while compiling class template member function 'void TestMatrix<T>::matrixMultiplication(structures::Matrix<T> *,structures::Matrix<T> *,structures::Matrix<T> *,std::ofstream &)'
+D:\FRI\3 Letný\SemestralnaPraca1\AUSBlahova\ADTTests.cpp(376): message : see reference to function template instantiation 'TestCoherentMatrix<int>::TestCoherentMatrix(void)' being compiled
+D:\FRI\3 Letný\SemestralnaPraca1\AUSBlahova\ADTTests.cpp(376): message : see reference to class template instantiation 'TestCoherentMatrix<int>' being compiled
+D:\FRI\3 Letný\SemestralnaPraca1\AUSBlahova\TestMatrix.h(107,21): warning C4018: '<': signed/unsigned mismatch
+D:\FRI\3 Letný\SemestralnaPraca1\AUSBlahova\TestMatrix.h(137,20): warning C4018: '<': signed/unsigned mismatch
+D:\FRI\3 Letný\SemestralnaPraca1\AUSBlahova\TestMatrix.h(126): message : while compiling class template member function 'void TestMatrix<T>::matrixMultiplication(structures::Matrix<T> *,structures::Matrix<T> *,structures::Matrix<T> *,std::ofstream &)'
           with
           [
               T=int
           ]
-D:\FRI\3 Letný\SemestralnaPraca1\AUSBlahova\TestMatrix.h(68): message : see reference to function template instantiation 'void TestMatrix<T>::matrixMultiplication(structures::Matrix<T> *,structures::Matrix<T> *,structures::Matrix<T> *,std::ofstream &)' being compiled
+D:\FRI\3 Letný\SemestralnaPraca1\AUSBlahova\TestMatrix.h(73): message : see reference to function template instantiation 'void TestMatrix<T>::matrixMultiplication(structures::Matrix<T> *,structures::Matrix<T> *,structures::Matrix<T> *,std::ofstream &)' being compiled
           with
           [
               T=int
           ]
-D:\FRI\3 Letný\SemestralnaPraca1\AUSBlahova\TestMatrix.h(129,21): warning C4018: '<': signed/unsigned mismatch
-D:\FRI\3 Letný\SemestralnaPraca1\AUSBlahova\TestMatrix.h(132,22): warning C4018: '<': signed/unsigned mismatch
+D:\FRI\3 Letný\SemestralnaPraca1\AUSBlahova\TestMatrix.h(139,21): warning C4018: '<': signed/unsigned mismatch
+D:\FRI\3 Letný\SemestralnaPraca1\AUSBlahova\TestMatrix.h(142,22): warning C4018: '<': signed/unsigned mismatch
 D:\FRI\3 Letný\SemestralnaPraca1\AUSBlahova\structures\list\array_list.h(292,21): warning C4018: '<': signed/unsigned mismatch
 D:\FRI\3 Letný\SemestralnaPraca1\AUSBlahova\structures\list\array_list.h(291): message : while compiling class template member function 'int structures::ArrayList<T>::getIndexOf(const T &)'
           with
@@ -109,7 +117,7 @@ D:\FRI\3 Letný\SemestralnaPraca1\AUSBlahova\TestIncoherentMatrix.h(33): message
           [
               T=int
           ]
-D:\FRI\3 Letný\SemestralnaPraca1\AUSBlahova\ADTTests.cpp(205): message : see reference to class template instantiation 'TestIncoherentMatrix<int>' being compiled
+D:\FRI\3 Letný\SemestralnaPraca1\AUSBlahova\ADTTests.cpp(381): message : see reference to class template instantiation 'TestIncoherentMatrix<int>' being compiled
 D:\FRI\3 Letný\SemestralnaPraca1\AUSBlahova\structures\matrix\incoherent_matrix.h(46,21): warning C4018: '<': signed/unsigned mismatch
 D:\FRI\3 Letný\SemestralnaPraca1\AUSBlahova\structures\matrix\incoherent_matrix.h(48,22): warning C4018: '<': signed/unsigned mismatch
 D:\FRI\3 Letný\SemestralnaPraca1\AUSBlahova\structures\matrix\incoherent_matrix.h(126,21): warning C4018: '<': signed/unsigned mismatch
@@ -123,13 +131,13 @@ D:\FRI\3 Letný\SemestralnaPraca1\AUSBlahova\structures\matrix\incoherent_matrix
           [
               T=int
           ]
-D:\FRI\3 Letný\SemestralnaPraca1\AUSBlahova\structures\list\array_list.h(355,14): warning C4552: '!=': result of expression not used
-D:\FRI\3 Letný\SemestralnaPraca1\AUSBlahova\structures\list\array_list.h(351): message : while compiling class template member function 'structures::Iterator<T> &structures::ArrayList<T>::ArrayListIterator::operator =(const structures::Iterator<T> &)'
+D:\FRI\3 Letný\SemestralnaPraca1\AUSBlahova\structures\list\array_list.h(353,14): warning C4552: '!=': result of expression not used
+D:\FRI\3 Letný\SemestralnaPraca1\AUSBlahova\structures\list\array_list.h(350): message : while compiling class template member function 'structures::Iterator<T> &structures::ArrayList<T>::ArrayListIterator::operator =(const structures::Iterator<T> &)'
           with
           [
               T=int
           ]
-D:\FRI\3 Letný\SemestralnaPraca1\AUSBlahova\structures\list\array_list.h(314): message : see reference to class template instantiation 'structures::ArrayList<T>::ArrayListIterator' being compiled
+D:\FRI\3 Letný\SemestralnaPraca1\AUSBlahova\structures\list\array_list.h(313): message : see reference to class template instantiation 'structures::ArrayList<T>::ArrayListIterator' being compiled
           with
           [
               T=int
@@ -170,14 +178,14 @@ D:\FRI\3 Letný\SemestralnaPraca1\AUSBlahova\TestBidirectionalCyclicLinkedList.h
           [
               T=int
           ]
-D:\FRI\3 Letný\SemestralnaPraca1\AUSBlahova\ADTTests.cpp(201): message : see reference to class template instantiation 'TestBidirectionalCyclicLinkedList<int>' being compiled
-D:\FRI\3 Letný\SemestralnaPraca1\AUSBlahova\structures\priority_queue\heap.h(152,18): warning C4018: '>=': signed/unsigned mismatch
-D:\FRI\3 Letný\SemestralnaPraca1\AUSBlahova\structures\priority_queue\heap.h(148): message : while compiling class template member function 'int structures::Heap<T>::getGreaterSonIndex(const int)'
+D:\FRI\3 Letný\SemestralnaPraca1\AUSBlahova\ADTTests.cpp(341): message : see reference to class template instantiation 'TestBidirectionalCyclicLinkedList<int>' being compiled
+D:\FRI\3 Letný\SemestralnaPraca1\AUSBlahova\structures\priority_queue\heap.h(157,18): warning C4018: '>=': signed/unsigned mismatch
+D:\FRI\3 Letný\SemestralnaPraca1\AUSBlahova\structures\priority_queue\heap.h(153): message : while compiling class template member function 'int structures::Heap<T>::getGreaterSonIndex(const int)'
           with
           [
               T=int
           ]
-D:\FRI\3 Letný\SemestralnaPraca1\AUSBlahova\structures\priority_queue\heap.h(126): message : see reference to function template instantiation 'int structures::Heap<T>::getGreaterSonIndex(const int)' being compiled
+D:\FRI\3 Letný\SemestralnaPraca1\AUSBlahova\structures\priority_queue\heap.h(131): message : see reference to function template instantiation 'int structures::Heap<T>::getGreaterSonIndex(const int)' being compiled
           with
           [
               T=int
@@ -197,13 +205,12 @@ D:\FRI\3 Letný\SemestralnaPraca1\AUSBlahova\TestHeap.h(32): message : see refer
           [
               T=int
           ]
-D:\FRI\3 Letný\SemestralnaPraca1\AUSBlahova\TestHeap.h(31): message : while compiling class template member function 'structures::PriorityQueue<T> *TestHeap<T>::create(void)'
+D:\FRI\3 Letný\SemestralnaPraca1\AUSBlahova\TestHeap.h(31): message : while compiling class template member function 'structures::PriorityQueue<T> *TestHeap<T>::newStructure(void)'
           with
           [
               T=int
           ]
-D:\FRI\3 Letný\SemestralnaPraca1\AUSBlahova\ADTTests.cpp(202): message : see reference to class template instantiation 'TestHeap<int>' being compiled
-D:\FRI\3 Letný\SemestralnaPraca1\AUSBlahova\structures\priority_queue\heap.h(158,19): warning C4018: '>=': signed/unsigned mismatch
+D:\FRI\3 Letný\SemestralnaPraca1\AUSBlahova\structures\priority_queue\heap.h(163,20): warning C4018: '>=': signed/unsigned mismatch
 D:\FRI\3 Letný\SemestralnaPraca1\AUSBlahova\structures\matrix\incoherent_matrix.h(86,22): warning C4018: '<': signed/unsigned mismatch
 D:\FRI\3 Letný\SemestralnaPraca1\AUSBlahova\structures\matrix\incoherent_matrix.h(81): message : while compiling class template member function 'structures::IncoherentMatrix<T> &structures::IncoherentMatrix<T>::operator =(const structures::IncoherentMatrix<T> &)'
           with
@@ -228,7 +235,10 @@ D:\FRI\3 Letný\SemestralnaPraca1\AUSBlahova\TestIncoherentMatrix.h(34): message
   Main.cpp
 D:\FRI\3 Letný\SemestralnaPraca1\AUSBlahova\Main.cpp(10,12): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
   Scenarios.cpp
-D:\FRI\3 Letný\SemestralnaPraca1\AUSBlahova\Scenarios.cpp(149,20): warning C4018: '<': signed/unsigned mismatch
-D:\FRI\3 Letný\SemestralnaPraca1\AUSBlahova\Scenarios.cpp(223,21): warning C4018: '<': signed/unsigned mismatch
+  ScenariosMatrix.cpp
+D:\FRI\3 Letný\SemestralnaPraca1\AUSBlahova\ScenariosMatrix.cpp(37,20): warning C4018: '<': signed/unsigned mismatch
+  ScenariosOther.cpp
+D:\FRI\3 Letný\SemestralnaPraca1\AUSBlahova\ScenariosOther.cpp(42,20): warning C4018: '<': signed/unsigned mismatch
+D:\FRI\3 Letný\SemestralnaPraca1\AUSBlahova\ScenariosOther.cpp(94,20): warning C4018: '<': signed/unsigned mismatch
   Generating Code...
   AUSBlahova.vcxproj -> D:\FRI\3 Letný\SemestralnaPraca1\AUSBlahova\Debug\AUSBlahova.exe

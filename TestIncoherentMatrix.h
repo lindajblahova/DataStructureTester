@@ -1,4 +1,5 @@
 #pragma once
+#include "structures/heap_monitor.h"
 #include "structures/matrix/incoherent_matrix.h"
 #include "TestMatrix.h"
 
@@ -14,12 +15,13 @@ public:
 private:
 
 	virtual Matrix<T>* newStructure(size_t rows, size_t columns, T& data) override;
-	const char* getFileName() override;
+	string getFileName() override;
+	string getName() override;
 
 };
 
 template<typename T>
-inline TestIncoherentMatrix<T>::TestIncoherentMatrix()
+inline TestIncoherentMatrix<T>::TestIncoherentMatrix() : TestMatrix<T>()
 {
 }
 
@@ -35,7 +37,13 @@ inline Matrix<T>* TestIncoherentMatrix<T>::newStructure(size_t rows, size_t colu
 }
 
 template<typename T>
-inline const char* TestIncoherentMatrix<T>::getFileName()
+inline string TestIncoherentMatrix<T>::getFileName()
 {
-	return "IncoherentMatrixTest.csv";
+	return "csv/IncoherentMatrixTest.csv";
+}
+
+template<typename T>
+inline string TestIncoherentMatrix<T>::getName()
+{
+	return "IMAT";
 }

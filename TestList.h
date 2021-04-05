@@ -2,64 +2,70 @@
 
 #include <iostream>
 #include <fstream>
+
 #include <ctime>
 #include <ratio>
 #include <chrono>
 
+#include "structures/heap_monitor.h"
 #include "structures/list/list.h"
+#include "ScenariosOther.h"
 #include "Scenarios.h"
+#include "Test.h"
 
 using namespace std;
 
 template<typename T>
-class TestList
+class TestList : public Test<T>
 {
 public:
 
 	TestList();
-	void test(Scenarios* scenario);
+	void test(Scenarios* scenario) override;
 	~TestList();
 
-private:
+protected:
 
 	virtual List<T>* newStructure() = 0;
-	virtual const char* getFileName() = 0;
-
-	void insertFirst(const T& data, List<T>* list);
-	T deleteFirst(List<T>* list);
-	void insertLast(const T& data, List<T>* list);
-	T deleteLast(List<T>* list);
-	void insertAtIndex(const int index, const T& data, List<T>* list);
-	T deleteAtIndex(const int index, List<T>* list);
-	T getData(const int index, List<T>* list);
-	void setData(const int index, const T& data, List<T>* list);
-	int getIndexOf(const T& data, List<T>* list);
-
+	virtual string getFileName() = 0;
+	virtual string getName() = 0;
 
 };
 
 template<typename T>
-inline TestList<T>::TestList()
+inline TestList<T>::TestList() : Test<T>()
 {
 }
 
+// vola vytvorenie struktury cez newStructure a dostane jej nasov csv suboru cez getFileName a skratku struktury cez getName
+// vykonava testovanie struktury podla scenara (pre celkovy pocet operacii prejde pole operations_ a rozhodne sa kotra skupina sa vykona)
+// nahodne sa rozhodne ktora operacia zo skupiny sa vykona
+// ak bola operacia platna zapisu sa do suboru udaje
+// sign ktory sa vypisuje v cykle je pocitadlo ktore ukazuje % vykonaneho testu
 template<typename T>
 inline void TestList<T>::test(Scenarios* scenario)
 {
+	ScenariosOther* scen = dynamic_cast<ScenariosOther*>(scenario);
 	List<T>* list;
 	list = newStructure();
-	const char* fileName = getFileName();
-	int invalidOperations = 0;
+	string fileName = getFileName();
+	const int RATIO = 100;
+	const char SIGN = 176;
 	bool validOperation;
+	string operationType = "";
+	int currentSize = 0;
+
 	chrono::high_resolution_clock::time_point startTime, endTime;
 
-	ofstream newfile;
-	newfile.open(fileName);
+	ofstream* newfile = new ofstream();
+	newfile->open(fileName);
 
+	cout << "0%\t\t\t\t\t\t50%\t\t\t\t\t\t100%" << endl;
 
-	int operations = scenario->getOperationsSize();
-	for (int i = 0; i < operations; i++)
+	int operationsSize = scen->getOperationData();
+	for (int i = 0; i < operationsSize; i++)
 	{
+		currentSize = list->size();
 		bool validOperation = true;
 		int generatedIndex = -1;
 		if (!list->isEmpty()) 
@@ -68,22 +74,23 @@ inline void TestList<T>::test(Scenarios* scenario)
 		}
 		T generatedValue = static_cast<T>(rand());
 
-		switch (scenario->getOperation(i))
+		switch (scen->getOperation(i))
 		{
 		case 0:
 			switch (rand() % 3)
 			{
 			case 0:
+				operationType = "vloz na zaciatok";
 				startTime = chrono::high_resolution_clock::now();
-				//insertFirst(generatedValue, list);
 				list->insert(generatedValue, 0);
 				endTime = chrono::high_resolution_clock::now();
 				break;
+
 			case 1:
-				if (generatedIndex == 0 && list->isEmpty()) 
+				operationType = "vloz na index";
+				if (generatedIndex == 0 && currentSize == 0 )
 				{
 					startTime = chrono::high_resolution_clock::now();
-					//insertAtIndex(generatedIndex, generatedValue, list);
 					list->insert(generatedValue, generatedIndex);
 					endTime = chrono::high_resolution_clock::now();
 				}
@@ -92,7 +99,6 @@ inline void TestList<T>::test(Scenarios* scenario)
 					if (!list->isEmpty())
 					{
 						startTime = chrono::high_resolution_clock::now();
-						//insertAtIndex(generatedIndex, generatedValue, list);
 						list->insert(generatedValue, generatedIndex);
 						endTime = chrono::high_resolution_clock::now();
 					}
@@ -104,11 +110,11 @@ inline void TestList<T>::test(Scenarios* scenario)
 				break;
 
 			case 2:
+				operationType = "vloz na koniec";
 				if (!list->isEmpty())
 				{
 					startTime = chrono::high_resolution_clock::now();
-					//insertLast(generatedValue, list);
-					list->insert(generatedValue, list->size() - 1);
+					list->add(generatedValue);
 					endTime = chrono::high_resolution_clock::now();
 				}
 				else
@@ -123,6 +129,7 @@ inline void TestList<T>::test(Scenarios* scenario)
 				break;
 			}
 			break;
+
 		case 1:
 			if (!list->isEmpty()) 
 			{
@@ -130,21 +137,21 @@ inline void TestList<T>::test(Scenarios* scenario)
 				{
 
 				case 0:
+					operationType = "zmaz na zaciatku";
 					startTime = chrono::high_resolution_clock::now();
-					//deleteFirst(list);
 					list->removeAt(0);
 					endTime = chrono::high_resolution_clock::now();
 					break;
 				case 1:
+					operationType = "zmaz na indexe";
 					startTime = chrono::high_resolution_clock::now();
-					//deleteAtIndex(generatedIndex, list);
 					list->removeAt(generatedIndex);
 					endTime = chrono::high_resolution_clock::now();
 					break;
 				case 2:
+					operationType = "zmaz na konci";
 					startTime = chrono::high_resolution_clock::now();
-					//deleteLast(list);
-					list->removeAt(list->size() - 1);
+					list->removeAt(currentSize - 1);
 					endTime = chrono::high_resolution_clock::now();
 					break;
 
@@ -163,15 +170,15 @@ inline void TestList<T>::test(Scenarios* scenario)
 			{
 				switch (rand() % 2)
 				{
-				case 1:
+				case 0:
+					operationType = "spristupni na indexe";
 					startTime = chrono::high_resolution_clock::now();
-					//getData(generatedIndex, list);
 					(*list)[generatedIndex];
 					endTime = chrono::high_resolution_clock::now();
 					break;
-				case 2:
+				case 1:
+					operationType = "nastav na indexe";
 					startTime = chrono::high_resolution_clock::now();
-					//setData(generatedIndex, generatedValue, list);
 					(*list)[generatedIndex] = generatedValue;
 					endTime = chrono::high_resolution_clock::now();
 					break;
@@ -187,11 +194,11 @@ inline void TestList<T>::test(Scenarios* scenario)
 			break;
 
 		case 3:
+			operationType = "index prvku";
 			if (!list->isEmpty()) 
 			{
 				T value = (*list)[generatedIndex];
 				startTime = chrono::high_resolution_clock::now();
-				//getIndexOf(value, list);
 				list->getIndexOf(value);
 				endTime = chrono::high_resolution_clock::now();
 			}
@@ -205,87 +212,55 @@ inline void TestList<T>::test(Scenarios* scenario)
 			break;
 		}
 
+		string groupName = "";
+
+		switch (scen->getOperation(i))
+		{
+		case 0:
+			groupName = "vloz";
+			break;
+		case 1:
+			groupName = "zmaz";
+			break;
+		case 2:
+			groupName = "get/set";
+			break;
+		case 3:
+			groupName = "index";
+			break;
+		default:
+			break;
+		}
 		if (validOperation) 
 		{
-		
-			newfile << scenario->getOperation(i) << ",";
-			newfile << chrono::duration_cast<chrono::microseconds>(endTime - startTime).count() << ",";
-			newfile << list->size();
-			newfile << endl;
+			*newfile << getName() << ",";
+			*newfile << groupName << ",";
+			*newfile << operationType << ",";
+			*newfile << chrono::duration_cast<chrono::nanoseconds>(endTime - startTime).count() << ",";
+			*newfile << currentSize;
+			*newfile << endl;
 		}
-		else 
+
+		if (i % (operationsSize/RATIO) == 0)
 		{
-			invalidOperations++;
+			cout << SIGN;
 		}
 
 	}
-	newfile << endl;
-	newfile << invalidOperations;
-	newfile << endl;
+	cout << endl;
 
-	newfile.close();
+	newfile->close();
+
+	delete newfile;
+	newfile = nullptr;
 
 	cout << "Vysledky testu su ulozene v subore: " << fileName << endl;
 	delete list;
+	list = nullptr;
 
 }
 
 template<typename T>
 inline TestList<T>::~TestList()
 {
-}
-
-
-template<typename T>
-inline void TestList<T>::insertFirst(const T& data, List<T>* list)
-{
-	list->insert(data, 0);
-}
-
-template<typename T>
-inline T TestList<T>::deleteFirst(List<T>* list)
-{
-	return list->removeAt(0);
-}
-
-template<typename T>
-inline void TestList<T>::insertLast(const T& data, List<T>* list)
-{
-	list->insert(data, list->size() - 1);
-}
-
-template<typename T>
-inline T TestList<T>::deleteLast(List<T>* list)
-{
-	return list->removeAt(list->size() - 1);
-}
-
-template<typename T>
-inline void TestList<T>::insertAtIndex(const int index, const T& data, List<T>* list)
-{
-	list->insert(data, index);
-}
-
-template<typename T>
-inline T TestList<T>::deleteAtIndex(const int index, List<T>* list)
-{
-	return list->removeAt(index);
-}
-
-template<typename T>
-inline T TestList<T>::getData(const int index, List<T>* list)
-{
-	return (*list)[index];
-}
-
-template<typename T>
-inline void TestList<T>::setData(const int index, const T& data, List<T>* list)
-{
-	(*list)[index] = data;
-}
-
-template<typename T>
-inline int TestList<T>::getIndexOf(const T& data, List<T>* list)
-{
-	return list->getIndexOf(data);
 }

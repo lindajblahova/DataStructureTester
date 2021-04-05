@@ -3,6 +3,7 @@
 #include <cstdlib>
 #include <cstring>
 
+
 namespace structures {
 
 	Vector::Vector(size_t size) :
@@ -52,7 +53,6 @@ namespace structures {
 		if (this != &other)
 		{
 			*this = dynamic_cast<const Vector&>(other);
-			//to iste: this->operator=(dynamic_cast<const Vector&>(other));
 		}
 		return *this;
 	}
@@ -61,9 +61,6 @@ namespace structures {
 	{
 		if (this != &other)
 		{
-			//1. prirad size
-			//2. realloc nezabudnut si to ulozit do memory_ !!!
-			//3. memcpy
 			size_ = other.size_;
 			memory_ = realloc(memory_, size_);
 			memcpy(memory_, other.memory_, size_);
@@ -88,11 +85,6 @@ namespace structures {
 
 	bool Vector::operator==(const Vector& other) const
 	{
-		//A - su identicke: this == &other
-		//B - rovnaka velkost size == other.size
-		//C - rovnaky obsah pamate  memcmp(memory_, other.memory_, size_) == 0
-		// return A alebo B a C
-		// co najjednoduchsie vyrazy co najviac dopredu
 
 		return this == &other ||
 			size_ == other.size_ &&
@@ -121,7 +113,6 @@ namespace structures {
 	{
 		// 1. platnost rozsahu (ci citam x bajtov medzi zaciatkom a koncom pola(nepresiahnem ho))
 		// 2. skopiruj to co chces - memcpy
-		// 3. return 
 		DSRoutines::rangeCheckExcept(index + count, size_ + 1, "Invalid end index!");
 		memcpy(&dest, getBytePointer(index), count);
 		return dest;
@@ -154,3 +145,5 @@ namespace structures {
 	}
 
 }
+
+

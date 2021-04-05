@@ -93,7 +93,6 @@ namespace structures
 	template<typename T>
 	inline PriorityQueueList<T>::~PriorityQueueList()
 	{
-		//TODO 06: PriorityQueueList
 		clear();
 		delete list_;
 		list_ = nullptr;
@@ -112,11 +111,11 @@ namespace structures
 	template<typename T>
 	inline PriorityQueueList<T>& PriorityQueueList<T>::operator=(const PriorityQueueList<T>& other)
 	{
-		//TODO 06: PriorityQueueList
 		if (this != &other)
 		{
 			clear();
 
+			// zlozitost O(n), add ma O(1)
 			for (PriorityQueueItem<T>* current : *other.list_)
 			{
 				list_->add(new PriorityQueueItem<T>(*current));
@@ -128,39 +127,46 @@ namespace structures
 	template<typename T>
 	inline size_t PriorityQueueList<T>::size() const
 	{
-		//TODO 06: PriorityQueueList
 		return list_->size();
 	}
 
 	template<typename T>
 	inline void PriorityQueueList<T>::clear()
 	{
-		//TODO 06: PriorityQueueList
 		for (PriorityQueueItem<T>* deleted : *list_)
 		{
 			delete deleted;
 		}
-
 		list_->clear();
 	}
 
 	template<typename T>
 	inline int PriorityQueueList<T>::indexOfPeek() const
 	{
-		//TODO 06: PriorityQueueList
+		// ak je zoznam prazdny vyhod vynimku
+		// 
+		// zapamataj si najlepsi index a prioritu -> inicializuj ich na -1 a max
+		// aktualny index = 0
+		// pomocou forach  ak
+		// aktualna priorita < naj priorita -> ak das < bude prvy a ak das <= bude to posledny prvok
+		// naj prior = aktualna prior
+		// naj index = akt index
+		// aktualny index++
+		// retutn najlepsi index
+
 		if (list_->isEmpty())
 		{
 			throw std::logic_error("Priority queue is empty!");
 		}
 		
-		int current = 0, index = 0;
-		int priorityMax = (*list_)[0]->getPriority();
+		int current = 0, index = -1;
+		int priorityMax = INT_MAX;
 
-		for (PriorityQueueItem<T>* priority : *list_)
+		for (PriorityQueueItem<T>* item : *list_)
 		{
-			if (priority->getPriority() < priorityMax) // lebo cim mensie cislo tym vacsia priorita
+			if (item->getPriority() < priorityMax) // lebo cim mensie cislo tym vacsia priorita
 			{
-				priorityMax = priority->getPriority();
+				priorityMax = item->getPriority();
 				index = current;
 			}
 			current++;
@@ -171,31 +177,35 @@ namespace structures
 	template<typename T>
 	inline T PriorityQueueList<T>::pop()
 	{
-		//TODO 06: PriorityQueueList
-		PriorityQueueItem<T>* popped = list_->removeAt(indexOfPeek());
-		T data = popped->accessData();
-		delete popped;
+		//zist si indexofPeek
+		// z listu volaj removeat index, zapamataj item
+		// zapamataj data itemu
+		// zrus item
+		// vrat data
+		PriorityQueueItem<T>* item = list_->removeAt(indexOfPeek());
+		T data = item->accessData();
+		delete item;
 		return data;
 	}
 
 	template<typename T>
 	inline T & PriorityQueueList<T>::peek()
 	{
-		//TODO 06: PriorityQueueList
+		// int  index = indexOfPeek();
+		// PriorityQueueItem<T>* item = (*list_)[index];
+		// return item->accessData();
 		return (*list_)[indexOfPeek()]->accessData();
 	}
 
 	template<typename T>
 	inline const T PriorityQueueList<T>::peek() const
 	{
-		//TODO 06: PriorityQueueList
 		return (*list_)[indexOfPeek()]->accessData();
 	}
 
 	template<typename T>
 	inline int PriorityQueueList<T>::peekPriority() const
 	{
-		//TODO 06: PriorityQueueList
 		return (*list_)[indexOfPeek()]->getPriority();
 	}
 }

@@ -83,7 +83,6 @@ namespace structures
 	template<typename T>
 	ExplicitStack<T>::~ExplicitStack()
 	{
-		//TODO 05: ExplicitStack
 		delete list_;
 		list_ = nullptr;
 	}
@@ -101,7 +100,6 @@ namespace structures
 	template<typename T>
 	inline ExplicitStack<T>& ExplicitStack<T>::operator=(const ExplicitStack<T>& other)
 	{
-		//TODO 05: ExplicitStack
 		if (this != &other)
 		{
 			*list_ = *other.list_;
@@ -118,42 +116,36 @@ namespace structures
 	template<typename T>
 	size_t ExplicitStack<T>::size() const
 	{
-		//TODO 05: ExplicitStack
 		return list_->size();
 	}
 
 	template<typename T>
 	inline void ExplicitStack<T>::clear()
 	{
-		//TODO 05: ExplicitStack
 		list_->clear();
 	}
 
 	template<typename T>
 	inline void ExplicitStack<T>::push(const T& data)
 	{
-		//TODO 05: ExplicitStack
 		list_->insert(data, 0);
 	}
 
 	template<typename T>
 	inline T ExplicitStack<T>::pop()
 	{
-		//TODO 05: ExplicitStack
 		list_->removeAt(0);
 	}
 
 	template<typename T>
 	inline T& ExplicitStack<T>::peek()
 	{
-		//TODO 05: ExplicitStack
 		return (*list_)[0];
 	}
 
 	template<typename T>
 	inline const T ExplicitStack<T>::peek() const
 	{
-		//TODO 05: ExplicitStack
 		return (*list_)[0];
 	}
 }

@@ -1,0 +1,293 @@
+﻿  ADTTests.cpp
+D:\FRI\3 Letný\SemestralnaPraca1\AUSBlahova\structures\memory_routines.h(3,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
+D:\FRI\3 Letný\SemestralnaPraca1\AUSBlahova\ADTTests.cpp(155,24): warning C4244: '=': conversion from 'int' to 'T', possible loss of data
+          with
+          [
+              T=short
+          ]
+D:\FRI\3 Letný\SemestralnaPraca1\AUSBlahova\ADTTests.cpp(223,19): warning C4456: declaration of 'folder' hides previous local declaration
+D:\FRI\3 Letný\SemestralnaPraca1\AUSBlahova\ADTTests.cpp(201,9): message : see declaration of 'folder'
+D:\FRI\3 Letný\SemestralnaPraca1\AUSBlahova\ADTTests.cpp(459,2): warning C5205: delete of an abstract class 'Test<int>' that has a non-virtual destructor results in undefined behavior
+D:\FRI\3 Letný\SemestralnaPraca1\AUSBlahova\ADTTests.cpp(371): message : see declaration of 'Test<int>'
+D:\FRI\3 Letný\SemestralnaPraca1\AUSBlahova\TestList.h(47,14): warning C4309: 'initializing': truncation of constant value
+D:\FRI\3 Letný\SemestralnaPraca1\AUSBlahova\TestList.h(40): message : while compiling class template member function 'void TestList<T>::test(Scenarios *)'
+          with
+          [
+              T=int
+          ]
+D:\FRI\3 Letný\SemestralnaPraca1\AUSBlahova\TestArrayList.h(9): message : see reference to class template instantiation 'TestList<T>' being compiled
+          with
+          [
+              T=int
+          ]
+D:\FRI\3 Letný\SemestralnaPraca1\AUSBlahova\ADTTests.cpp(378): message : see reference to class template instantiation 'TestArrayList<int>' being compiled
+D:\FRI\3 Letný\SemestralnaPraca1\AUSBlahova\TestList.h(61,1): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+D:\FRI\3 Letný\SemestralnaPraca1\AUSBlahova\TestList.h(62,1): warning C4456: declaration of 'validOperation' hides previous local declaration
+D:\FRI\3 Letný\SemestralnaPraca1\AUSBlahova\TestList.h(48,7): message : see declaration of 'validOperation'
+D:\FRI\3 Letný\SemestralnaPraca1\AUSBlahova\TestList.h(147,1): warning C4267: 'argument': conversion from 'size_t' to 'const int', possible loss of data
+D:\FRI\3 Letný\SemestralnaPraca1\AUSBlahova\TestList.h(48,7): warning C4101: 'validOperation': unreferenced local variable
+D:\FRI\3 Letný\SemestralnaPraca1\AUSBlahova\TestPriorityQueue.h(49,14): warning C4309: 'initializing': truncation of constant value
+D:\FRI\3 Letný\SemestralnaPraca1\AUSBlahova\TestPriorityQueue.h(40): message : while compiling class template member function 'void TestPriorityQueue<T>::test(Scenarios *)'
+          with
+          [
+              T=int
+          ]
+D:\FRI\3 Letný\SemestralnaPraca1\AUSBlahova\TestHeap.h(9): message : see reference to class template instantiation 'TestPriorityQueue<T>' being compiled
+          with
+          [
+              T=int
+          ]
+D:\FRI\3 Letný\SemestralnaPraca1\AUSBlahova\ADTTests.cpp(397): message : see reference to class template instantiation 'TestHeap<int>' being compiled
+D:\FRI\3 Letný\SemestralnaPraca1\AUSBlahova\TestPriorityQueue.h(61,1): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+D:\FRI\3 Letný\SemestralnaPraca1\AUSBlahova\TestMatrix.h(41,14): warning C4309: 'initializing': truncation of constant value
+D:\FRI\3 Letný\SemestralnaPraca1\AUSBlahova\TestMatrix.h(40): message : while compiling class template member function 'void TestMatrix<T>::test(Scenarios *)'
+          with
+          [
+              T=int
+          ]
+D:\FRI\3 Letný\SemestralnaPraca1\AUSBlahova\TestCoherentMatrix.h(9): message : see reference to class template instantiation 'TestMatrix<T>' being compiled
+          with
+          [
+              T=int
+          ]
+D:\FRI\3 Letný\SemestralnaPraca1\AUSBlahova\ADTTests.cpp(422): message : see reference to class template instantiation 'TestCoherentMatrix<int>' being compiled
+D:\FRI\3 Letný\SemestralnaPraca1\AUSBlahova\TestSet.h(40,14): warning C4309: 'initializing': truncation of constant value
+D:\FRI\3 Letný\SemestralnaPraca1\AUSBlahova\TestSet.h(38): message : while compiling class template member function 'void TestSet<int>::test(Scenarios *)'
+D:\FRI\3 Letný\SemestralnaPraca1\AUSBlahova\ADTTests.cpp(439): message : see reference to class template instantiation 'TestSet<int>' being compiled
+D:\FRI\3 Letný\SemestralnaPraca1\AUSBlahova\TestSet.h(80,1): warning C4456: declaration of 'sign' hides previous local declaration
+D:\FRI\3 Letný\SemestralnaPraca1\AUSBlahova\TestSet.h(40,7): message : see declaration of 'sign'
+D:\FRI\3 Letný\SemestralnaPraca1\AUSBlahova\TestSet.h(80,16): warning C4309: 'initializing': truncation of constant value
+D:\FRI\3 Letný\SemestralnaPraca1\AUSBlahova\TestSet.h(107,1): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+D:\FRI\3 Letný\SemestralnaPraca1\AUSBlahova\TestSet.h(118,1): warning C4244: '+=': conversion from '_Rep' to 'int', possible loss of data
+          with
+          [
+              _Rep=__int64
+          ]
+D:\FRI\3 Letný\SemestralnaPraca1\AUSBlahova\TestSet.h(126,1): warning C4244: '+=': conversion from '_Rep' to 'int', possible loss of data
+          with
+          [
+              _Rep=__int64
+          ]
+D:\FRI\3 Letný\SemestralnaPraca1\AUSBlahova\TestSet.h(134,1): warning C4244: '+=': conversion from '_Rep' to 'int', possible loss of data
+          with
+          [
+              _Rep=__int64
+          ]
+D:\FRI\3 Letný\SemestralnaPraca1\AUSBlahova\TestSet.h(142,1): warning C4244: '+=': conversion from '_Rep' to 'int', possible loss of data
+          with
+          [
+              _Rep=__int64
+          ]
+D:\FRI\3 Letný\SemestralnaPraca1\AUSBlahova\TestSet.h(150,1): warning C4244: '+=': conversion from '_Rep' to 'int', possible loss of data
+          with
+          [
+              _Rep=__int64
+          ]
+D:\FRI\3 Letný\SemestralnaPraca1\AUSBlahova\TestSet.h(159,1): warning C4244: '+=': conversion from '_Rep' to 'int', possible loss of data
+          with
+          [
+              _Rep=__int64
+          ]
+D:\FRI\3 Letný\SemestralnaPraca1\AUSBlahova\TestSet.h(168,1): warning C4244: '+=': conversion from '_Rep' to 'int', possible loss of data
+          with
+          [
+              _Rep=__int64
+          ]
+D:\FRI\3 Letný\SemestralnaPraca1\AUSBlahova\TestSet.h(177,1): warning C4244: '+=': conversion from '_Rep' to 'int', possible loss of data
+          with
+          [
+              _Rep=__int64
+          ]
+D:\FRI\3 Letný\SemestralnaPraca1\AUSBlahova\TestSet.h(80,9): warning C4189: 'sign': local variable is initialized but not referenced
+D:\FRI\3 Letný\SemestralnaPraca1\AUSBlahova\TestMatrix.h(131,84): warning C4244: '=': conversion from '_Rep' to 'int', possible loss of data
+          with
+          [
+              _Rep=__int64
+          ]
+D:\FRI\3 Letný\SemestralnaPraca1\AUSBlahova\TestMatrix.h(115): message : while compiling class template member function 'void TestMatrix<T>::testMatrix(std::ofstream &,int,int,int)'
+          with
+          [
+              T=int
+          ]
+D:\FRI\3 Letný\SemestralnaPraca1\AUSBlahova\TestMatrix.h(69): message : see reference to function template instantiation 'void TestMatrix<T>::testMatrix(std::ofstream &,int,int,int)' being compiled
+          with
+          [
+              T=int
+          ]
+D:\FRI\3 Letný\SemestralnaPraca1\AUSBlahova\TestCoherentMatrix.h(24): message : while compiling class template member function 'TestCoherentMatrix<int>::TestCoherentMatrix(void)'
+D:\FRI\3 Letný\SemestralnaPraca1\AUSBlahova\ADTTests.cpp(422): message : see reference to function template instantiation 'TestCoherentMatrix<int>::TestCoherentMatrix(void)' being compiled
+D:\FRI\3 Letný\SemestralnaPraca1\AUSBlahova\TestMatrix.h(132,1): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+D:\FRI\3 Letný\SemestralnaPraca1\AUSBlahova\TestMatrix.h(145,84): warning C4244: '=': conversion from '_Rep' to 'int', possible loss of data
+          with
+          [
+              _Rep=__int64
+          ]
+D:\FRI\3 Letný\SemestralnaPraca1\AUSBlahova\TestMatrix.h(146,1): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+D:\FRI\3 Letný\SemestralnaPraca1\AUSBlahova\structures\list\array_list.h(226,1): warning C4267: 'argument': conversion from 'size_t' to 'const int', possible loss of data
+D:\FRI\3 Letný\SemestralnaPraca1\AUSBlahova\structures\list\array_list.h(221): message : while compiling class template member function 'void structures::ArrayList<T>::add(const T &)'
+          with
+          [
+              T=int
+          ]
+D:\FRI\3 Letný\SemestralnaPraca1\AUSBlahova\TestArrayList.h(34): message : see reference to class template instantiation 'structures::ArrayList<T>' being compiled
+          with
+          [
+              T=int
+          ]
+D:\FRI\3 Letný\SemestralnaPraca1\AUSBlahova\TestArrayList.h(33): message : while compiling class template member function 'structures::List<T> *TestArrayList<T>::newStructure(void)'
+          with
+          [
+              T=int
+          ]
+D:\FRI\3 Letný\SemestralnaPraca1\AUSBlahova\structures\list\array_list.h(242,1): warning C4267: 'argument': conversion from 'size_t' to 'const int', possible loss of data
+D:\FRI\3 Letný\SemestralnaPraca1\AUSBlahova\structures\list\array_list.h(232): message : while compiling class template member function 'void structures::ArrayList<T>::insert(const T &,const int)'
+          with
+          [
+              T=int
+          ]
+D:\FRI\3 Letný\SemestralnaPraca1\AUSBlahova\structures\list\array_list.h(283,1): warning C4267: 'argument': conversion from 'size_t' to 'const int', possible loss of data
+D:\FRI\3 Letný\SemestralnaPraca1\AUSBlahova\structures\list\array_list.h(276): message : while compiling class template member function 'T structures::ArrayList<T>::removeAt(const int)'
+          with
+          [
+              T=int
+          ]
+D:\FRI\3 Letný\SemestralnaPraca1\AUSBlahova\structures\list\array_list.h(253): message : see reference to function template instantiation 'T structures::ArrayList<T>::removeAt(const int)' being compiled
+          with
+          [
+              T=int
+          ]
+D:\FRI\3 Letný\SemestralnaPraca1\AUSBlahova\structures\list\array_list.h(320,1): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+D:\FRI\3 Letný\SemestralnaPraca1\AUSBlahova\structures\list\array_list.h(318): message : while compiling class template member function 'structures::Iterator<T> *structures::ArrayList<T>::getEndIterator(void) const'
+          with
+          [
+              T=int
+          ]
+D:\FRI\3 Letný\SemestralnaPraca1\AUSBlahova\structures\priority_queue\heap.h(105,1): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+D:\FRI\3 Letný\SemestralnaPraca1\AUSBlahova\structures\priority_queue\heap.h(103): message : while compiling class template member function 'void structures::Heap<T>::push(const int,const T &)'
+          with
+          [
+              T=int
+          ]
+D:\FRI\3 Letný\SemestralnaPraca1\AUSBlahova\TestHeap.h(34): message : see reference to class template instantiation 'structures::Heap<T>' being compiled
+          with
+          [
+              T=int
+          ]
+D:\FRI\3 Letný\SemestralnaPraca1\AUSBlahova\TestHeap.h(33): message : while compiling class template member function 'structures::PriorityQueue<T> *TestHeap<T>::newStructure(void)'
+          with
+          [
+              T=int
+          ]
+D:\FRI\3 Letný\SemestralnaPraca1\AUSBlahova\structures\priority_queue\heap.h(121,1): warning C4267: 'argument': conversion from 'size_t' to 'const int', possible loss of data
+D:\FRI\3 Letný\SemestralnaPraca1\AUSBlahova\structures\priority_queue\heap.h(118): message : while compiling class template member function 'T structures::Heap<T>::pop(void)'
+          with
+          [
+              T=int
+          ]
+D:\FRI\3 Letný\SemestralnaPraca1\AUSBlahova\structures\priority_queue\heap.h(122,1): warning C4267: 'argument': conversion from 'size_t' to 'const int', possible loss of data
+D:\FRI\3 Letný\SemestralnaPraca1\AUSBlahova\structures\priority_queue\priority_queue_sorted_array_list.h(112,1): warning C4267: 'return': conversion from 'size_t' to 'int', possible loss of data
+D:\FRI\3 Letný\SemestralnaPraca1\AUSBlahova\structures\priority_queue\priority_queue_sorted_array_list.h(107): message : while compiling class template member function 'int structures::PriorityQueueSortedArrayList<T>::indexOfPeek(void) const'
+          with
+          [
+              T=int
+          ]
+D:\FRI\3 Letný\SemestralnaPraca1\AUSBlahova\TestPriorityQueueSortedArrayList.h(35): message : see reference to class template instantiation 'structures::PriorityQueueSortedArrayList<T>' being compiled
+          with
+          [
+              T=int
+          ]
+D:\FRI\3 Letný\SemestralnaPraca1\AUSBlahova\TestPriorityQueueSortedArrayList.h(34): message : while compiling class template member function 'structures::PriorityQueue<T> *TestPriorityQueueSortedArrayList<T>::newStructure(void)'
+          with
+          [
+              T=int
+          ]
+D:\FRI\3 Letný\SemestralnaPraca1\AUSBlahova\ADTTests.cpp(400): message : see reference to class template instantiation 'TestPriorityQueueSortedArrayList<int>' being compiled
+D:\FRI\3 Letný\SemestralnaPraca1\AUSBlahova\structures\list\array_list.h(329,1): warning C4267: 'argument': conversion from 'size_t' to 'const int', possible loss of data
+D:\FRI\3 Letný\SemestralnaPraca1\AUSBlahova\structures\list\array_list.h(327): message : while compiling class template member function 'void structures::ArrayList<T>::enlarge(void)'
+          with
+          [
+              T=int
+          ]
+D:\FRI\3 Letný\SemestralnaPraca1\AUSBlahova\structures\list\array_list.h(224): message : see reference to function template instantiation 'void structures::ArrayList<T>::enlarge(void)' being compiled
+          with
+          [
+              T=int
+          ]
+D:\FRI\3 Letný\SemestralnaPraca1\AUSBlahova\structures\list\array_list.h(144): message : while compiling class template member function 'structures::ArrayList<T>::ArrayList(void)'
+          with
+          [
+              T=int
+          ]
+D:\FRI\3 Letný\SemestralnaPraca1\AUSBlahova\TestArrayList.h(34): message : see reference to function template instantiation 'structures::ArrayList<T>::ArrayList(void)' being compiled
+          with
+          [
+              T=int
+          ]
+D:\FRI\3 Letný\SemestralnaPraca1\AUSBlahova\structures\list\bidirectional_cyclic_linked_list.h(486,1): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+D:\FRI\3 Letný\SemestralnaPraca1\AUSBlahova\structures\list\bidirectional_cyclic_linked_list.h(479): message : while compiling class template member function 'structures::BCLinkedListItem<T> *structures::BidirectionalCyclicLinkedList<T>::getItemAtIndex(int) const'
+          with
+          [
+              T=int
+          ]
+D:\FRI\3 Letný\SemestralnaPraca1\AUSBlahova\structures\list\bidirectional_cyclic_linked_list.h(313): message : see reference to function template instantiation 'structures::BCLinkedListItem<T> *structures::BidirectionalCyclicLinkedList<T>::getItemAtIndex(int) const' being compiled
+          with
+          [
+              T=int
+          ]
+D:\FRI\3 Letný\SemestralnaPraca1\AUSBlahova\structures\list\bidirectional_cyclic_linked_list.h(244): message : while compiling class template member function 'structures::BidirectionalCyclicLinkedList<T>::BidirectionalCyclicLinkedList(void)'
+          with
+          [
+              T=int
+          ]
+D:\FRI\3 Letný\SemestralnaPraca1\AUSBlahova\TestBidirectionalCyclicLinkedList.h(35): message : see reference to function template instantiation 'structures::BidirectionalCyclicLinkedList<T>::BidirectionalCyclicLinkedList(void)' being compiled
+          with
+          [
+              T=int
+          ]
+D:\FRI\3 Letný\SemestralnaPraca1\AUSBlahova\TestBidirectionalCyclicLinkedList.h(35): message : see reference to class template instantiation 'structures::BidirectionalCyclicLinkedList<T>' being compiled
+          with
+          [
+              T=int
+          ]
+D:\FRI\3 Letný\SemestralnaPraca1\AUSBlahova\TestBidirectionalCyclicLinkedList.h(34): message : while compiling class template member function 'structures::List<T> *TestBidirectionalCyclicLinkedList<T>::newStructure(void)'
+          with
+          [
+              T=int
+          ]
+D:\FRI\3 Letný\SemestralnaPraca1\AUSBlahova\ADTTests.cpp(384): message : see reference to class template instantiation 'TestBidirectionalCyclicLinkedList<int>' being compiled
+D:\FRI\3 Letný\SemestralnaPraca1\AUSBlahova\structures\matrix\coherent_matrix.h(123,1): warning C4267: 'return': conversion from 'size_t' to 'int', possible loss of data
+D:\FRI\3 Letný\SemestralnaPraca1\AUSBlahova\structures\matrix\coherent_matrix.h(122): message : while compiling class template member function 'int structures::CoherentMatrix<T>::positionInArray(const int,const int)'
+          with
+          [
+              T=int
+          ]
+D:\FRI\3 Letný\SemestralnaPraca1\AUSBlahova\structures\matrix\coherent_matrix.h(85): message : see reference to function template instantiation 'int structures::CoherentMatrix<T>::positionInArray(const int,const int)' being compiled
+          with
+          [
+              T=int
+          ]
+D:\FRI\3 Letný\SemestralnaPraca1\AUSBlahova\structures\matrix\coherent_matrix.h(37): message : while compiling class template member function 'structures::CoherentMatrix<T>::CoherentMatrix(size_t,size_t,T &)'
+          with
+          [
+              T=int
+          ]
+D:\FRI\3 Letný\SemestralnaPraca1\AUSBlahova\TestCoherentMatrix.h(35): message : see reference to function template instantiation 'structures::CoherentMatrix<T>::CoherentMatrix(size_t,size_t,T &)' being compiled
+          with
+          [
+              T=int
+          ]
+D:\FRI\3 Letný\SemestralnaPraca1\AUSBlahova\TestCoherentMatrix.h(35): message : see reference to class template instantiation 'structures::CoherentMatrix<T>' being compiled
+          with
+          [
+              T=int
+          ]
+D:\FRI\3 Letný\SemestralnaPraca1\AUSBlahova\TestCoherentMatrix.h(34): message : while compiling class template member function 'structures::Matrix<T> *TestCoherentMatrix<T>::newStructure(size_t,size_t,T &)'
+          with
+          [
+              T=int
+          ]
+  Main.cpp
+D:\FRI\3 Letný\SemestralnaPraca1\AUSBlahova\structures\memory_routines.h(3,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
+D:\FRI\3 Letný\SemestralnaPraca1\AUSBlahova\Main.cpp(14,12): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+  Generating Code...
+  AUSBlahova.vcxproj -> D:\FRI\3 Letný\SemestralnaPraca1\AUSBlahova\x64\Debug\AUSBlahova.exe

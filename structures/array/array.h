@@ -4,13 +4,13 @@
 #include "../vector/vector.h"
 #include "../ds_routines.h"
 
-namespace structures 
+namespace structures
 {
-	
+
 	/// <summary> Pole. </summary>
 	/// <typeparam name = "T"> Typ dat ukladanych v poli. </typepram>
-	template<typename T> 
-	class Array	: public Structure
+	template<typename T>
+	class Array : public Structure
 	{
 	public:
 		/// <summary> Konstruktor vytvori pole o velkosti size prvkov. </summary>
@@ -23,7 +23,7 @@ namespace structures
 
 		/// <summary> Destruktor. </summary>
 		~Array();
-		
+
 		/// <summary> Operacia klonovania. Vytvori a vrati duplikat pola. </summary>
 		/// <returns> Ukazovatel na vytvoreny klon pola. </returns>
 		Structure* clone() const override;
@@ -48,7 +48,7 @@ namespace structures
 		/// <param name = "other"> Pole, s ktorym sa ma porovnat. </param>
 		/// <returns> true, ak su polia rovnake, false inak. </returns>
 		bool operator==(const Array<T>& other) const;
-		
+
 		/// <summary> Vrati adresou prvok na indexe. </summary>
 		/// <param name = "index"> Index prvku. </param>
 		/// <returns> Adresa prvku na danom indexe. </returns>
@@ -136,7 +136,7 @@ namespace structures
 		}
 		return *this;
 	}
-	
+
 	template<typename T>
 	size_t Array<T>::size() const
 	{
@@ -146,25 +146,14 @@ namespace structures
 	template<typename T>
 	T& Array<T>::operator[](const int index)
 	{
-		// 1. ziskaj index vo vektore (mapfunction)
-		// 2. ziskaj z vektora byte* na indexe vo vektore
-		// 3. pretypujes byte* na t*
-		// 4. vrat deref. t*
 
-		// sposob 1
-		// int indexV = mapFunction(index);
-		// byte* ptrB = vector_->getBytePointer(indexV);
-		// T* ptrT = reinterpret_cast<T*>(ptrB);
-		// return *ptrT;
-
-		// sposob 2
-		return *reinterpret_cast<T*>(vector_->getBytePointer(mapFunction(index)));
+		return *(reinterpret_cast<T*>(vector_->getBytePointer(mapFunction(index))));
 	}
 
 	template<typename T>
 	const T Array<T>::operator[](const int index) const
 	{
-		return *reinterpret_cast<T*>(vector_->getBytePointer(mapFunction(index)));
+		return *(reinterpret_cast<T*>(vector_->getBytePointer(mapFunction(index))));
 	}
 
 	template<typename T>
@@ -177,13 +166,18 @@ namespace structures
 	template<typename T>
 	void Array<T>::copy(const Array<T>& src, const int srcStartIndex, Array<T>& dest, const int destStartIndex, const int length)
 	{
-		Vector::copy(
-			*src.vector_,
-			src.mapFunction(srcStartIndex),
-			*dest.vector_,
-			dest.mapFunction(destStartIndex),
-			length * sizeof(T)
-		);
+		if (length != 0)
+		{
+
+			Vector::copy(
+				*src.vector_,
+				src.mapFunction(srcStartIndex),
+				*dest.vector_,
+				dest.mapFunction(destStartIndex),
+				length * sizeof(T)
+			);
+		}
+
 	}
 
 	template<typename T>
@@ -193,5 +187,5 @@ namespace structures
 		DSRoutines::rangeCheckExcept(index, 0, size_, "Invalid index!");
 		return index * sizeof(T);
 	}
-}
 
+}

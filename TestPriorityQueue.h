@@ -6,64 +6,84 @@
 #include <ratio>
 #include <chrono>
 
+#include "structures/heap_monitor.h"
 #include "structures/priority_queue/priority_queue.h"
+#include "structures/priority_queue/priority_queue_two_lists_limited_capacity.h"
 #include "Scenarios.h"
+#include "ScenariosOther.h"
+#include "Test.h"
 
 
 
 template<typename T>
-class TestPriorityQueue
+class TestPriorityQueue : public Test<T>
 {
 public:
 
-	void test(Scenarios* scenario);
+	TestPriorityQueue();
+	void test(Scenarios* scenario) override;
+	~TestPriorityQueue();
 
-private:
-	virtual PriorityQueue<T>* create() = 0;
-	virtual const char* getFileName() = 0;
-
-	void push(const int priority, const T& data, PriorityQueue<T>* priorityQueue);
-	T pop(PriorityQueue<T>* priorityQueue);
-	T peek(PriorityQueue<T>* priorityQueue);
+protected:
+	virtual PriorityQueue<T>* newStructure() = 0;
+	virtual string getFileName() = 0;
+	virtual string getName() = 0;
 
 };
 
 template<typename T>
+inline TestPriorityQueue<T>::TestPriorityQueue() : Test<T>()
+{
+}
+
+// vola vytvorenie struktury cez newStructure a dostane jej nasov csv suboru cez getFileName a skratku struktury cez getName
+// vykonava testovanie struktury podla scenara (pre celkovy pocet operacii prejde pole operations_ a rozhodne sa kotra skupina sa vykona)
+// ak bola operacia platna zapisu sa do suboru udaje
+// sign ktory sa vypisuje v cykle je pocitadlo ktore ukazuje % vykonaneho testu
+template<typename T>
 inline void TestPriorityQueue<T>::test(Scenarios* scenario)
 {
-	
+	ScenariosOther* scen = dynamic_cast<ScenariosOther*>(scenario);
 	PriorityQueue<T>* priorityQueue;
-	priorityQueue = create();
-	const char* fileName = getFileName();
-	const int MAX_PRIORITY = 10000;
-	const int OPERATIONS__COUNT = 100000;
-	int invalidOperations = 0;
+	priorityQueue = newStructure();
+
+	string fileName = getFileName();
+	const int MAX_PRIORITY = 10000;  // maximalna generovana priorita 
+	const int RATIO = 100;
+	const char SIGN = 176;
 	bool validOperation;
+	int currentSize = 0;
 	chrono::high_resolution_clock::time_point startTime, endTime;
 
-	ofstream newfile;
-	newfile.open(fileName);
+	ofstream* newfile = new ofstream();
+	newfile->open(fileName);
 
-
-
-	for (int i = 0; i < OPERATIONS__COUNT; i++)
+	cout << "0%\t\t\t\t\t\t50%\t\t\t\t\t\t100%" << endl;
+	int operationsSize = scen->getOperationData();
+	for (int i = 0; i < operationsSize; i++)   
 	{
+		currentSize = priorityQueue->size();
 		validOperation = true;
 		int generatedPriority = rand() % MAX_PRIORITY;
 		T generatedValue = static_cast<T>(rand());
+		string operationType = "";
 
-		startTime = chrono::high_resolution_clock::now();
-
-		switch (scenario->getOperation(i))
+		switch (scen->getOperation(i))
 		{
 		case 0:
-			push(generatedPriority, generatedValue, priorityQueue);
+			operationType = "vloz";
+			startTime = chrono::high_resolution_clock::now();
+			priorityQueue->push(generatedPriority, generatedValue);
+			endTime = chrono::high_resolution_clock::now();
 			break;
 
 		case 1:
 			if (!priorityQueue->isEmpty())
 			{
-				pop(priorityQueue);
+				operationType = "vyber";
+				startTime = chrono::high_resolution_clock::now();
+				priorityQueue->pop();
+				endTime = chrono::high_resolution_clock::now();
 			}
 			else
 			{
@@ -74,7 +94,10 @@ inline void TestPriorityQueue<T>::test(Scenarios* scenario)
 		case 2:
 			if (!priorityQueue->isEmpty())
 			{
-				peek(priorityQueue);
+				operationType = "ukaz";
+				startTime = chrono::high_resolution_clock::now();
+				priorityQueue->peek();
+				endTime = chrono::high_resolution_clock::now();
 			}
 			else
 			{
@@ -88,43 +111,32 @@ inline void TestPriorityQueue<T>::test(Scenarios* scenario)
 
 		if (validOperation)
 		{
-			endTime = chrono::high_resolution_clock::now();
-			newfile << scenario->getOperation(i) << ",";
-			newfile << chrono::duration_cast<chrono::microseconds>(endTime - startTime).count() << ",";
-			newfile << priorityQueue->size();
-			newfile << endl;
+			*newfile << getName() << ",";
+			*newfile << operationType << ",";
+			*newfile << chrono::duration_cast<chrono::nanoseconds>(endTime - startTime).count() << ",";
+			*newfile << currentSize;
+			*newfile << endl;
 		}
-		else
+
+		if (i % (operationsSize / RATIO) == 0)
 		{
-			invalidOperations++;
+			cout << SIGN;
 		}
 
 	}
-	newfile << endl;
-	newfile << invalidOperations;
-	newfile << endl;
 
-	newfile.close();
+	newfile->close();
+
+	delete newfile;
+	newfile = nullptr;
 
 	cout << "Vysledky testu su ulozene v subore: " << fileName << endl;
 	delete priorityQueue;
+	priorityQueue = nullptr;
+
 }
 
 template<typename T>
-inline void TestPriorityQueue<T>::push(const int priority, const T& data, PriorityQueue<T>* priorityQueue)
+inline TestPriorityQueue<T>::~TestPriorityQueue()
 {
-	priorityQueue->push(priority, data);
 }
-
-template<typename T>
-inline T TestPriorityQueue<T>::pop(PriorityQueue<T>* priorityQueue)
-{
-	return priorityQueue->pop();
-}
-
-template<typename T>
-inline T TestPriorityQueue<T>::peek(PriorityQueue<T>* priorityQueue)
-{
-	return priorityQueue->peek();
-}
-

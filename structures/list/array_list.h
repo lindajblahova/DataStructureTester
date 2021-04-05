@@ -140,6 +140,7 @@ namespace structures
 		};
 	};
 
+	
 	template<typename T>
 	inline ArrayList<T>::ArrayList():
 		List<T>::List(),
@@ -220,7 +221,8 @@ namespace structures
 	inline void ArrayList<T>::add(const T & data)
 	{
 		// ak si na konci dostupneho pola potrebujes ho zvacsit
-		if (size_ == array_->size()) {
+		if (size_ == array_->size()) 
+		{
 			enlarge();
 		}
 		(*array_)[size_] = data;
@@ -231,12 +233,14 @@ namespace structures
 	inline void ArrayList<T>::insert(const T & data, const int index)
 	{
 		if (index == size_) {
-			add(data);
+			this->add(data);
 		}
-		else {
+		else 
+		{
 			DSRoutines::rangeCheckExcept(index, size_, "Invalid index!");
 			// skontroluj si ci mas miesto
-			if (size_ == array_->size()) {
+			if (size_ == array_->size()) 
+			{
 				enlarge();
 			}
 			Array<T>::copy(*array_, index, *array_, index + 1, (size_ - index));
@@ -253,31 +257,16 @@ namespace structures
 			removeAt(i);
 			return true;
 		}
-		else {
+		else 
+		{
 			return false;
 		}
-
-		// mozem to urobit aj takto
-		// ale je to pomalsie kvoli handlingu vynimky
-		// nemal by si robit vynimky ked sa to da urobit ako else vetva
-		/*
-		* try {
-			removeAt(getIndexOf(data));
-			return true;
-		}
-		catch(..) {
-			return false;
-		}
-		*/
 	}
 
 	template<typename T>
 	inline T ArrayList<T>::removeAt(const int index)
 	{
-		// DSRoutines::rangeCheckExcept(index, size_, "Invalid index!");
-		// T del = (*array_)[index];
-		// 
-		// miesto tych 2 riadkov mozem urobit toto lebo operator[] urobi rangeCheckExcept
+		//  mozem urobit toto lebo operator[] urobi rangeCheckExcept
 		T del = (*this)[index];
 		if (index != size_ - 1) {
 			Array<T>::copy(*array_, index + 1, *array_, index, size_ - index - 1);
@@ -291,7 +280,6 @@ namespace structures
 	{
 		for (int i = 0; i < size_; i++) {
 			if ((*array_)[i] == data) {
-				// chcem vratit index
 				return i;
 			}
 		}
@@ -310,14 +298,13 @@ namespace structures
 	template<typename T>
 	inline Iterator<T>* ArrayList<T>::getBeginIterator() const
 	{
-		//TODO 03: ArrayList
 		return new ArrayListIterator(this, 0);
 	}
 
 	template<typename T>
 	inline Iterator<T>* ArrayList<T>::getEndIterator() const
 	{
-		//TODO 03: ArrayList
+		
 		return new ArrayListIterator(this, size_);
 	}
 
@@ -349,33 +336,30 @@ namespace structures
 	template<typename T>
 	inline Iterator<T>& ArrayList<T>::ArrayListIterator::operator=(const Iterator<T>& other)
 	{
-		//TODO 03: ArrayList
 		const ArrayListIterator& otherALI = dynamic_cast<const ArrayListIterator&>(other);
 		position_ = otherALI.position_;
-		arrayList_ != otherALI.arrayList_;
+		arrayList_ = otherALI.arrayList_;
 		return *this;
 	}
 
 	template<typename T>
 	inline bool ArrayList<T>::ArrayListIterator::operator!=(const Iterator<T>& other)
 	{
-		//TODO 03: ArrayList
 		const ArrayListIterator& otherALI = dynamic_cast<const ArrayListIterator&>(other);
-		return (position_ != otherALI.position_ && arrayList_ != otherALI.arrayList_);
+		return (position_ != otherALI.position_ || arrayList_ != otherALI.arrayList_);
 	}
 
 	template<typename T>
 	inline const T ArrayList<T>::ArrayListIterator::operator*()
 	{
-		//TODO 03: ArrayList
 		return (*arrayList_)[position_];
 	}
 
 	template<typename T>
 	inline Iterator<T>& ArrayList<T>::ArrayListIterator::operator++()
 	{
-		//TODO 03: ArrayList
 		position_++;
 		return *this;
 	}
+
 }

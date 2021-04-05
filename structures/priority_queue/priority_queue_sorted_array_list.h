@@ -85,28 +85,30 @@ namespace structures
 	template<typename T>
 	inline void PriorityQueueSortedArrayList<T>::push(const int priority, const T& data)
 	{
-		//TODO 06: PriorityQueueList
-		if (priority <= this->peekPriority() || this->list_->isEmpty())
+		// ak je zoznam prazdny -> add
+		// ak je priorita lepsia ako doteraz najlpesia -> add
+		// ak je priorita horsia ako doteraz nahorsia -> insert(0)
+		// pomocou cyklu for hladam na zaciatku index prvku ktory ma ako prvy lepsiu prioritu ako ja, vlozim pred neho
+		if (this->list_->isEmpty() || priority <= this->peekPriority() )
 		{
 			this->list_->add(new PriorityQueueItem<T>(priority, data));
 		}
 		else
 		{
-			for (int i = 0; (*this->list_)[i]->getPriority() > priority; i++)
-			{
-				this->list_->insert(new PriorityQueueItem<T>(priority, data), i);
-			}
+			int i = 0;
+			for (; (*this->list_)[i]->getPriority() > priority; i++)
+			{}
+			this->list_->insert(new PriorityQueueItem<T>(priority, data), i);
 		}
 	}
 
 	template<typename T>
 	inline int PriorityQueueSortedArrayList<T>::indexOfPeek() const
 	{
-		//TODO 06: PriorityQueueList
-		if (this->list_->size() <= 0)
+		if (this->list_->isEmpty())
 		{
 			throw std::logic_error("Priority queue is empty!");
 		}
-		return this->list_->size() - 1;
+		return (this->list_->size() - 1);
 	}
 }

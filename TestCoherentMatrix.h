@@ -1,4 +1,5 @@
 #pragma once
+#include "structures/heap_monitor.h"
 #include "structures/matrix/coherent_matrix.h"
 #include "TestMatrix.h"
 
@@ -14,12 +15,13 @@ public:
 private:
 
 	Matrix<T>* newStructure(size_t rows, size_t columns, T& data) override;
-	const char* getFileName() override;
+	string getFileName() override;
+	string getName() override;
 
 };
 
 template<typename T>
-inline TestCoherentMatrix<T>::TestCoherentMatrix()
+inline TestCoherentMatrix<T>::TestCoherentMatrix() : TestMatrix<T>()
 {
 }
 
@@ -35,7 +37,13 @@ inline Matrix<T>* TestCoherentMatrix<T>::newStructure(size_t rows, size_t column
 }
 
 template<typename T>
-inline const char* TestCoherentMatrix<T>::getFileName()
+inline string TestCoherentMatrix<T>::getFileName()
 {
-	return "CoherentMatrixTest.csv";
+	return "csv/CoherentMatrixTest.csv";
+}
+
+template<typename T>
+inline string TestCoherentMatrix<T>::getName()
+{
+	return "CMAT";
 }

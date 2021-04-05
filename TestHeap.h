@@ -1,4 +1,6 @@
 #pragma once
+
+#include "structures/heap_monitor.h"
 #include "TestPriorityQueue.h"
 #include "structures/priority_queue/heap.h"
 
@@ -12,12 +14,13 @@ public:
 
 private:
 
-	virtual PriorityQueue<T>* create() override;
-	virtual const char* getFileName() override;
+	PriorityQueue<T>* newStructure() override;
+	string getFileName() override;
+	string getName() override;
 };
 
 template<typename T>
-inline TestHeap<T>::TestHeap()
+inline TestHeap<T>::TestHeap() : TestPriorityQueue<T>()
 {
 }
 
@@ -27,13 +30,19 @@ inline TestHeap<T>::~TestHeap()
 }
 
 template<typename T>
-inline PriorityQueue<T>* TestHeap<T>::create()
+inline PriorityQueue<T>* TestHeap<T>::newStructure()
 {
 	return new Heap<T>();
 }
 
 template<typename T>
-inline const char* TestHeap<T>::getFileName()
+inline string TestHeap<T>::getFileName()
 {
-	return "HeapTest.csv";
+	return "csv/HeapTest.csv";
+}
+
+template<typename T>
+inline string TestHeap<T>::getName()
+{
+	return "HEAP";
 }

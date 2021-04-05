@@ -1,5 +1,6 @@
 #pragma once
 
+#include "structures/heap_monitor.h"
 #include "structures/list/list.h"
 #include "TestList.h"
 
@@ -13,12 +14,13 @@ public:
 
 private:
 
-	virtual List<T>* newStructure() override;
-	virtual const char* getFileName() override;
+	List<T>* newStructure() override;
+	string getFileName() override;
+	string getName() override;
 };
 
 template<typename T>
-inline TestArrayList<T>::TestArrayList()
+inline TestArrayList<T>::TestArrayList() : TestList<T>()
 {
 }
 
@@ -34,7 +36,13 @@ inline List<T>* TestArrayList<T>::newStructure()
 }
 
 template<typename T>
-inline const char* TestArrayList<T>::getFileName()
+inline string TestArrayList<T>::getFileName()
 {
-	return  "ArrayListTest.csv";
+	return  "csv/ArrayListTest.csv";
+}
+
+template<typename T>
+inline string TestArrayList<T>::getName()
+{
+	return "AL";
 }

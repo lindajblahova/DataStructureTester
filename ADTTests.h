@@ -1,6 +1,8 @@
 #pragma once
 #include <fstream>
 #include <iostream>
+#include "structures/heap_monitor.h"
+
 #include "structures/vector/vector.h"
 #include "structures/array/array.h"
 #include "structures/list/array_list.h"
@@ -14,10 +16,15 @@
 #include "TestLinkedList.h"
 #include "TestBidirectionalCyclicLinkedList.h"
 #include "TestPriorityQueueSortedArrayList.h"
+#include "TestTwoListsLimitedCapacity.h"
+#include "TestTwoListsHalfCapacity.h"
+#include "TestTwoListsSqrtCapacity.h"
 #include "TestHeap.h"
 #include "TestPriorityQueue.h"
 #include "TestCoherentMatrix.h"
 #include "TestIncoherentMatrix.h"
+#include "TestBitmap.h"
+#include "TestSet.h"
 
 
 using namespace std;
@@ -29,23 +36,19 @@ public:
 
 	ADTTests();
 
-	void chooseStructure();
+	void testStructureFromFile();
 	
 	~ADTTests();
 
 private:
 
-	int  createStructureTest(fstream& newfile, int lastStructure);
-	void testForStructure(Scenarios* scenario, int adt, int ads1);
-	const char* getADTName(int adt, int ads);
-	const char* getADSName(int adt, int ads);
-	void readFromFile(fstream& newfile, const char* fileName);
-	void clearAllLists();
+	Scenarios* newScenario(int type);
+	Scenarios* createScenarioMatrix();
+	Scenarios* createScenario(int type);
+	void testsTable(structureTypes type);
+	int scenariosTable(string path, string folder, int structure);
+	void testForStructure(Scenarios* scenario);
 
 private:
-
-	LinkedList<int>* testsList_;
-	LinkedList<int>* ADTToTest_;
-	LinkedList<int>* firstADSToTest_;
-	LinkedList<int>* secondADSToTest_;
+	LinkedList<string>* scenariosForADT_ = nullptr;
 };

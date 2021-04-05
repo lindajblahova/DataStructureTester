@@ -1,380 +1,665 @@
+#include <iostream>
+#include <algorithm>
+
+#include "structures/heap_monitor.h"
 #include "ADTTests.h"
+#include "Test.h"
+#include "ScenariosMatrix.h"
+#include "ScenariosOther.h"
+#include "ScenariosOtherBitMap.h"
+#include "structures/list/linked_list.h"
+
+
+using namespace std;
 
 ADTTests::ADTTests()
 {
-	testsList_ = new LinkedList<int>();
-	ADTToTest_ = new LinkedList<int>();
-	firstADSToTest_ = new LinkedList<int>();
-	secondADSToTest_ = new LinkedList<int>();
+	scenariosForADT_ = new LinkedList<string>();
 }
 
-void ADTTests::chooseStructure()
+// menu metoda, ma cyklus ktory bezi a vola vyber(+nacitanie)/vytvorenie scenara a vypis tabuliek a testovanie struktury, bez kym ho pouzivatel neukonci 
+void ADTTests::testStructureFromFile()
 {
-	int structureToTest = -1;
-	Scenarios* scenario = nullptr;
-	char runTester = 'y';
+	
+	fstream* reader = new fstream();
+	string fileName;
+	string input;
+	string folder;
+	string path;
+	int structure;
 
-	const char* fileName = "adttests.txt";
-	fstream structuresFile(fileName);
+	char runningApp = 'y';
 
-	const char* adt = "default";
-	const char* ads1 = "default";
-	const char* ads2 = "default";
-
-	readFromFile(structuresFile, fileName);
-	structuresFile.close();
-
-	while (runTester == 'y')
+	while (runningApp == 'y')
 	{
-		system("CLS");
-		cout << "_________________________________________________________________" << endl;
-		cout << "+---------------+---------------+---------------+---------------+" << endl;
-		cout << "|     Test      |      ADT      |     ADS 1     |     ADS 2     |" << endl;
+		Scenarios* scen = nullptr;
+		cout << "_________________________________" << endl;
+		cout << "+---------------+---------------+" << endl;
+		cout << "|     Test      |      ADT      |" << endl;
+		cout << "+---------------+---------------+" << endl;
+		cout << "|       0       |      List     |" << endl;
+		cout << "+---------------+---------------+" << endl;
+		cout << "|       1       | PriorityQueue |" << endl;
+		cout << "+---------------+---------------+" << endl;
+		cout << "|       2       |     Matrix    |" << endl;
+		cout << "+---------------+---------------+" << endl;
+		cout << "|       3       |      Set      |" << endl;
+		cout << "+-------------------------------+" << endl;
+		cout << "Vyberte cislo ADT pre testovanie: ";
+		cin >> structure;
 
-		for (int i = 0; i < testsList_->size(); i++)
+		while (structure < 0 || structure > 3)
 		{
-			adt = getADTName((*ADTToTest_)[i], (*firstADSToTest_)[i]);
-			ads1 = getADSName((*ADTToTest_)[i], (*firstADSToTest_)[i]);
-			ads2 = getADSName((*ADTToTest_)[i], (*secondADSToTest_)[i]);
-
-			cout << "+---------------+---------------+---------------+---------------+" << endl;
-			cout << "|\t" << (*testsList_)[i] << "\t|   " << adt << "\t| " << ads1 << "\t| "
-				 << ((*secondADSToTest_)[i] == -1 ? "\t-" : ads2) << "\t|" << endl;
-
-		}
-		cout << "+---------------+---------------+---------------+---------------+" << endl;
-		cout << "|            Pre vytvorenie vlastneho testu zadajte 99          |" << endl;
-		cout << "+---------------------------------------------------------------+" << endl;
-
-		cout << "Zadajte cislo testu, ktory chcete vykonat: ";
-		cin >> structureToTest;
-		bool chosen = false, created = false;
-		int index = 0;
-
-		while (chosen == false)
-		{
-			if (structureToTest == 99)
-			{
-				structuresFile.open(fileName, fstream::app);
-				structureToTest = createStructureTest(structuresFile, (*testsList_)[testsList_->size() - 1]);
-				structuresFile.close();
-
-				clearAllLists();
-
-				structuresFile.open(fileName);
-				readFromFile(structuresFile, fileName);
-				structuresFile.close();
-				created = true;
-			}
-
-			if (structureToTest > -1 && structureToTest < testsList_->size())
-			{
-				index = testsList_->getIndexOf(structureToTest);
-				chosen = true;
-				
-			}
-			
-			if (chosen == false && created == false)
-			{
-				cout << "Zadany ADT neexistuje! Vyberte inu moznost: ";
-				cin >> structureToTest;
-			}
-
+			cout << "Zadany ADT neexistuje! Vyberte inu moznost: ";
+			cin >> structure;
 		}
 
-		int adtToTest = (*ADTToTest_)[index];
-		int asdToTest1 = (*firstADSToTest_)[index];
-		int asdToTest2 = (*secondADSToTest_)[index];
-
-		scenario = new Scenarios();
-		scenario->chooseScenario(adtToTest);
-
-		testForStructure(scenario, adtToTest, asdToTest1);
-		if (asdToTest2 != -1)
+		switch (structure)
 		{
-			testForStructure(scenario, adtToTest, asdToTest2);
+		case 0:
+			folder = "list/";
+			input = "savedListScenarios.txt";
+			break;
+		case 1:
+			folder = "priorityQueue/";
+			input = "savedPriorityQueueScenarios.txt";
+			break;
+		case 2:
+			folder = "matrix/";
+			input = "savedMatrixScenarios.txt";
+			break;
+		case 3:
+			folder = "set/";
+			input = "savedSetScenarios.txt";
+			break;
+		default:
+			folder = "";
+			input = "";
+			break;
+		}
+
+		path = "scenarios/" + folder + input;
+
+		int fileFound = scenariosTable(path, folder, structure);
+		if (fileFound == -1)
+		{
+			delete reader;
+			throw logic_error("Subor pre scenare nebol najdeny!");
+		}
+
+		cout << "Zadajte nazov scenaru pre testovanie: ";
+		cin >> input;
+
+		;
+		while (scenariosForADT_->getIndexOf(input) == -1 &&  input != "novy")
+		{
+			cout << "Zadany scenar neexistuje! Zadajte nazov scenaru: ";
+			cin >> input;
+		}
+
+		if (input == "novy")
+		{
+			scen = newScenario(structure);
+		}
+		else
+		{
+			string type;
+			string number;
+			int operationData = 0;
+			int minBase = 0, maxBase = 100;
+			Array<short int>* ratio = nullptr;
+			path = "scenarios/" + folder + input + ".txt";
+
+			reader->open(path);
+
+			if (reader->fail())
+			{
+				delete reader;
+				throw logic_error("Scenar sa nenasiel!");
+			}
+
+			getline(*reader, type);
+
+			if (type.compare("set") == 0) {
+				getline(*reader, number);
+				minBase = stoi(number);
+				getline(*reader, number);
+				maxBase = stoi(number);
+			}
+
+			getline(*reader, number);
+			operationData = stoi(number);
+
+			if (type.compare("list") == 0) {
+				ratio = new Array<short int>(4);
+			}
+			if (type.compare("priorityQueue") == 0) {
+				ratio = new Array<short int>(3);
+			}
+			if (type.compare("matrix") == 0) {
+				ratio = new Array<short int>(3);
+			}
+			if (type.compare("set") == 0) {
+				ratio = new Array<short int>(8);
+			}
+
+			if (ratio != nullptr)
+			{
+				for (int i = 0; i < ratio->size(); i++) {
+					getline(*reader, number);
+					(*ratio)[i] = stoi(number);
+				}
+			}
+
+			reader->close();
+			if (structure == 2)
+			{
+				scen = new ScenariosMatrix(ratio, operationData);
+			}
+			else if (structure == 3)
+			{
+				scen = new ScenariosOtherBitMap(ratio, operationData, minBase, maxBase);
+			}
+			else
+			{
+				scen = new ScenariosOther(ratio, operationData, structure);
+			}
+		}
+
+		if (scen != nullptr)
+		{
+			testForStructure(scen);
+
+		}
+
+
+		while(true)
+		{
+			cout << "Chcete pokracovat v testovani? (y/n): ";
+			cin >> runningApp;
+			if (runningApp == 'y' || runningApp == 'n')
+			{
+				break;
+			}
+		}
+
+		delete scen;
+	}
+	
+
+	delete reader;
+}
+
+// zavola vytvorenie scenara podla typu, handluje ukladanie scenara a  zapis nazvu scenara do suboru vsetkych scenarov pre dany adt
+Scenarios* ADTTests::newScenario(int type)
+{
+	int number;
+	string folder, input, fileName;
+	Scenarios* scen;
+	fstream* reader = new fstream();
+	cout << "__________________________________________________" << endl;
+
+	
+	if (type == 2)
+	{
+		scen = createScenarioMatrix();	
+	}
+	else
+	{
+		scen = createScenario(type);
+	}
+
+	cout << "Chcete vytvoreny scenar ulozit? (0 - ano, 1 - nie): ";
+	cin >> number;
+	if (number == 0)
+	{
+		cout << "Zadajte nazov pre ulozenie scenara (max 12 znakov): ";
+		cin >> fileName;
+		fileName = fileName.substr(0, 12);
+		string folder = scen->saveScenario(fileName);
+
+		switch (scen->getType())
+		{
+		case list:
+			input = "savedListScenarios.txt";
+			break;
+		case priorityQueue:
+			input = "savedPriorityQueueScenarios.txt";
+			break;
+		case matrix:
+			input = "savedMatrixScenarios.txt";
+			break;
+		case set:
+			input = "savedSetScenarios.txt";
+			break;
+		default:
+			break;
+		}
+		string path = "scenarios/" + folder + input;
+
+		reader->open(path, fstream::app);
+		*reader << fileName << endl;
+		reader->close();
+	}
+
+
+	delete reader;
+	return scen;
+}
+
+//vytvorenie scenara pre maticu
+Scenarios* ADTTests::createScenarioMatrix()
+{
+	Array<short int>* matrixParameters = new Array<short int>(3);
+
+	int operationToPerform = 0;
+	(*matrixParameters)[0] = 0;
+	(*matrixParameters)[1] = 0;
+	(*matrixParameters)[2] = -1;
+	cout << "Zadajte operaciu ktoru chcete vykonat (0 - sucet, 1 - sucin): ";
+	cin >> operationToPerform;
+	while (operationToPerform != 0 && operationToPerform != 1)
+	{
+		cout << "Vybrana operacia neexistuje! Vyberte inu operaciu: ";
+		cin >> operationToPerform;
+	}
+
+	cout << "Testovanie prebieha tak, ze jeden rozmer matice je konstantny, kym druhy je variabilny od 1 po zvolenu hodnotu" << endl;
+	cout << "v zvolenych intervaloch. Testuje sa teda M-variabilny N-konstantny a nasledne naopak." << endl;
+	while ( ((*matrixParameters)[0] <= 0 || (*matrixParameters)[1] <= 0 || (*matrixParameters)[2] <= 0) || ((*matrixParameters)[1] % (*matrixParameters)[2] != 0) )
+	{
+		cout << "Zadajte konstantny rozmer matice:  ";
+		cin >> (*matrixParameters)[0];
+
+		cout << "Zadajte maximalny variabilny rozmer matice:  ";
+		cin >> (*matrixParameters)[1];
+
+		cout << "Zadajte velkost intervalu pre variabilny rozmer:  ";
+		cin >> (*matrixParameters)[2];
+
+		if ((*matrixParameters)[0] <= 0 || (*matrixParameters)[1] <= 0 || (*matrixParameters)[2] <= 0)
+		{
+			cout << "Niektory z rozmerov je zly! Zadajte ine rozmery: " << endl;;
+		}
+		if ((*matrixParameters)[2] != 0)
+		{
+			if ((*matrixParameters)[1] % (*matrixParameters)[2] != 0)
+			{
+				cout << "Maximalny variabilny rozmer musi byt delitelny velkostou kroku!" << endl;
+			}
+		}
+		else
+		{
+			cout << "Krok nemoze byt nulovy!" << endl;
+			(*matrixParameters)[2] = -1;
+		}
+
+	}
+	return new ScenariosMatrix(matrixParameters, operationToPerform);
+}
+
+// vytvorenie scenara podla typu - list, front, set
+Scenarios* ADTTests::createScenario(int type)
+{
+	int minBase = -1, maxBase = -1;
+	if (type == 3)
+	{
+		while (minBase == -1 || maxBase == -1 || (minBase >= maxBase))
+		{
+			cout << "Zadajte minimalnu velkost bazovej mnoziny: ";
+			cin >> minBase;
+			cout << "Zadajte maximalnu velkost bazovej mnoziny: ";
+			cin >> maxBase;
+
+			if (minBase < 0 || maxBase < 0 || (minBase >= maxBase))
+			{
+				cout << "Niektore udaje boli zadane zle! Minimum a maximum musia byt aspon 0 a zaroven minimum musi byt mensie ako maximum!" << endl;
+			}
+		}
+
+	}
+
+	cout << "Zadajte celkovy pocet operacii: " ;
+	int operationsCount;
+	cin >> operationsCount;
+
+	while (operationsCount % 100 != 0)
+	{
+		cout << "Pocet operacii musi byt delitelny 100: ";
+		cin >> operationsCount;
+	}
+
+	int number = type == 0 ? 4 : type == 1 ? 3 : 8;
+	int sum = 0;
+	if (type == 0)
+	{
+		cout << "Druh operacii: 0 - vloz, 1 - zrus, 2 - get/set, 3 - index" << endl;
+	}
+	else if (type == 1)
+	{
+		cout << "Druh operacii: 0 - vloz, 1 - vyber, 2 - ukaz" << endl;
+	}
+	else
+	{
+		cout << "Druh operacii: 0 - vloz, 1 - odober, 2 - patri, 3 - je rovna" << endl;
+		cout << "4 - je podmnozinou, 5 - zjednotenie, 6 - prienik, 7 - rozdiel" << endl;
+	}
+	Array<short int>* ratio = new Array<short int>(number);
+	while (sum != 100)
+	{
+		sum = 0;
+		for (int i = 0; i < number; i++) {
+			cout << "Zadajte pocet % operacie " << i << ".: ";
+			cin >> (*ratio)[i];
+			sum += (*ratio)[i];
+		}
+		if (sum != 100)
+		{
+			cout << "Sucet % musi byt rovny 100!" << endl;
+		}
+	}
+	if (type == 3)
+	{
+		return new ScenariosOtherBitMap(ratio, operationsCount, minBase, maxBase);
+	}
+	else
+	{
+		return new ScenariosOther(ratio, operationsCount, type);
+	}
+}
+
+// vytvorenie instancie pre Test podla vybranej struktury, zavolanie metody test pre strukturu - TESTOVACIA METODA
+void ADTTests::testForStructure(Scenarios* scenario)
+{
+	int number;
+	structureTypes type = scenario->getType();
+	
+	testsTable(type);
+	cin >> number;
+
+	Test<int>* test = nullptr;
+	switch (type)
+	{
+	case list:
+		switch (number)
+		{
+		case 0:
+			test = new TestArrayList<int>();
+			break;
+		case 1:
+			test = new TestLinkedList<int>();
+			break;
+		case 2:
+			test = new TestBidirectionalCyclicLinkedList<int>();
+			break;
+		default:
+			cout << "Zadany typ neexistuje! Vyberte iny: ";
+			testForStructure(scenario);
+			break;
+		}
+		break;
+
+	case priorityQueue:
+		switch (number)
+		{
+		case 0:
+			test = new TestHeap<int>();
+			break;
+		case 1:
+			test = new TestPriorityQueueSortedArrayList<int>();
+			break;
+		case 2:
+			test = new TestTwoListsLimitedCapacity<int>(((*(scenario->getDataFromFile()))[0] * scenario->getOperationData()) / 1000 );
+			break;
+		case 3:
+			test = new TestTwoListsSqrtCapacity<int>();
+			break;
+		case 4:
+			test = new TestTwoListsHalfCapacity<int>();
+			break;
+		default:
+			cout << "Zadany typ neexistuje! Vyberte iny: ";
+			testForStructure(scenario);
+			break;
+		}
+		break;
+
+	case matrix:
+		switch (number)
+		{
+		case 0:
+			test = new TestCoherentMatrix<int>();
+			break;
+
+		case 1:
+			test = new TestIncoherentMatrix<int>();
+			break;
+		default:
+			cout << "Zadany typ neexistuje! Vyberte iny: ";
+			testForStructure(scenario);
+			break;
+		}
+		break;
+
+	case set:
+		switch (number)
+		{
+		case 0:
+			test = new TestBitmap();
+			break;
+
+		default:
+			cout << "Zadany typ neexistuje! Vyberte iny: ";
+			testForStructure(scenario);
+			break;
+		}
+		break;
+
+	default:
+		break;
+	}
+
+	if (test != nullptr)
+	{
+		test->test(scenario);
+	}
+
+	delete test;
+
+
+	test = nullptr;
+}
+
+
+// vypis tabuliek struktur ktore mozno testovat
+void ADTTests::testsTable(structureTypes type)
+{
+	switch (type)
+	{
+		case list:
+			cout << "_________________________________" << endl;
+			cout << "+---------------+---------------+" << endl;
+			cout << "|     Test      |      ADS      |" << endl;
+			cout << "+---------------+---------------+" << endl;
+			cout << "|       0       |   ArrayList   |" << endl;
+			cout << "+---------------+---------------+" << endl;
+			cout << "|       1       |  LinkedList   |" << endl;
+			cout << "+---------------+---------------+" << endl;
+			cout << "|       2       | BCLinkedList  |" << endl;
+			cout << "+-------------------------------+" << endl;
+			break;
+
+		case priorityQueue:
+			cout << "_________________________________" << endl;
+			cout << "+---------------+---------------+" << endl;
+			cout << "|     Test      |      ADS      |" << endl;
+			cout << "+---------------+---------------+" << endl;
+			cout << "|       0       |     Heap      |" << endl;
+			cout << "+---------------+---------------+" << endl;
+			cout << "|       1       | PQSArrayList  |" << endl;
+			cout << "+---------------+---------------+" << endl;
+			cout << "|       2       | 2Lists 1/1000 |" << endl;
+			cout << "+---------------+---------------+" << endl;
+			cout << "|       3       | 2Lists sqrt(n)|" << endl;
+			cout << "+---------------+---------------+" << endl;
+			cout << "|       4       |  2Lists n/2   |" << endl;
+			cout << "+-------------------------------+" << endl;
+			break;
+
+		case matrix:
+			cout << "_________________________________" << endl;
+			cout << "+---------------+---------------+" << endl;
+			cout << "|     Test      |      ADS      |" << endl;
+			cout << "+---------------+---------------+" << endl;
+			cout << "|       0       |  CoherMatrix  |" << endl;
+			cout << "+---------------+---------------+" << endl;
+			cout << "|       1       | IncoherMatrix |" << endl;
+			cout << "+-------------------------------+" << endl;
+			break;
+
+		case set:
+			cout << "_________________________________" << endl;
+			cout << "+---------------+---------------+" << endl;
+			cout << "|     Test      |      ADS      |" << endl;
+			cout << "+---------------+---------------+" << endl;
+			cout << "|       0       |     BitMap    |" << endl;
+			cout << "+-------------------------------+" << endl;
+			break;
+		
+		default:
+			break;
+	}
+	cout << "Vyber cislo ADS pre testovanie: ";
+}
+
+// otvori si subory pre nacitanie scenarov a ich detailov, vypise na konzolu, vrati -1 ked nenajde subor so vsetkymi scenarmi
+int ADTTests::scenariosTable( string path, string folder, int structure)
+{
+	fstream* reader = new fstream();
+	fstream* reader2 = new fstream();
+	string line;
+
+	reader->open(path);
+
+	if (reader->fail())
+	{
+		delete reader;
+		delete reader2;
+		return -1;
+	}
+
+	if (structure == 0)
+	{
+		cout << "_________________________________________________________________________________________________" << endl;
+		cout << "-------------------------------------------------------------------------------------------------" << endl;
+		cout << "|     Nazov     | Pocet operacii|      Vloz     |     Zrus      |   Spristupni  |     Index     |" << endl;
+	}
+	if (structure == 1)
+	{
+		cout << "_________________________________________________________________________________" << endl;
+		cout << "---------------------------------------------------------------------------------" << endl;
+		cout << "|     Nazov     | Pocet operacii|      Vloz     |     Vyber     |      Ukaz     |" << endl;
+	}
+	if (structure == 2)
+	{
+		cout << "_________________________________________________________________________________" << endl;
+		cout << "---------------------------------------------------------------------------------" << endl;
+		cout << "|     Nazov     |    Operacia   |   Konstantny  |   Variabilny  |      Krok     |" << endl;
+	}
+	if (structure == 3)
+	{
+		cout << "_______________________________________________________________________________________________________________________" << endl;
+		cout << "-----------------------------------------------------------------------------------------------------------------------" << endl;
+		cout << "|     Nazov     |  MinB |     MaxB      |  Pocet oper.  | Vloz  | Odob  | Patri | Rovna | Podmn | Zjedn | Prien | Rozd |" << endl;
+
+	}
+
+	while (getline(*reader, line)) {
+		scenariosForADT_->add(line);
+		switch (structure)
+		{
+		case 0:
+			cout << "+---------------+---------------+---------------+---------------+---------------+---------------+" << endl;
+			break;
+		case 1: case 2:
+			cout << "+---------------+---------------+---------------+---------------+---------------+" << endl;
+			break;
+		case 3:
+			cout << "+---------------+-------+---------------+---------------+-------+-------+-------+-------+-------+-------+-------+------+" << endl;
+					 
+			break;
+		default:
+			break;
+		}
+
+		cout << "|  " << line << "\t|   ";
+		reader2->open("scenarios/" + folder + line + ".txt");
+
+		if (structure != 3)
+		{
+			getline(*reader2, line);
+			if (line == "matrix")
+			{
+				getline(*reader2, line);
+				cout << (line == "0" ? "sucet" : "sucin") << "\t|\t";
+			}
+			while (getline(*reader2, line)) {
+				cout << line << "\t|\t";
+			}
+			cout << endl;
+		}
+		else
+		{
+			getline(*reader2, line);
+			getline(*reader2, line);
+			cout << line << "\t| ";
+			getline(*reader2, line);
+			cout << line << "   \t| ";
+			getline(*reader2, line);
+			cout << line << "    \t|";
+			while (getline(*reader2, line)) {
+				cout << line << "\t|";
+			}
+			cout << endl;
 		}
 		
+		reader2->close();
 
-
-		cout << "---------------------------------------------------------------" << endl;
-
-		while (true)
-		{
-			cout << "Chcete testovat dalsie ADT? (y/n)" << endl;
-			cin >> runTester;
-			if (runTester == 'y' || runTester == 'n')
-			{
-				break;
-			}
-		}
-
-		if (scenario != nullptr)
-		{
-			delete scenario;
-		}
 	}
-}
+	reader->close();
 
-int ADTTests::createStructureTest(fstream& newfile, int lastStructure)
-{
-	int adt = -1, ads1 = -1, ads2 = -1, tested = 2;
-	while (true)
-	{
-		cout << "Zadajte ADT ktory chcete testovat (0 - List, 1 - PriortyQueue, 2 - Matrix) : ";
-		cin >> adt;
-		while (true)
-		{
-			if (adt > -1 && (ADTToTest_->getIndexOf(adt) != -1))
-			{
-				break;
-			}
-			else
-			{
-				cout << "Zadany ADT neexistuje ! Vyberte iny ADT: ";
-				cin >> adt;
-			}
-			
-		}
-		cout << "Zadajte pocet testovanych struktur (1 - jedna, 2 - dve): ";
-		cin >> tested;
-		while (true)
-		{
-			if (tested > 0 && tested < 3)
-			{
-				break;
-			}
-			else
-			{
-				cout << "Mozte testovat iba 1 alebo 2 struktury! Zadajte pocet: ";
-				cin >> tested;
-			}
-
-		}
-		cout << "Struktury ktore mozno testovat ";
-		switch (adt)
-		{
-		case 0:
-			cout << "(0 - ArrayList, 1 - LinkedList, 2 - BidirectionalCyclicLinkedList) :" << endl;
-			break;
-		case 1:
-			cout << "(0 - Heap, 1 - PriorityQueueSortedArrayList) :" << endl;
-			break;
-		case 2:
-			cout << "(0 - CoherentMatrix, 1 - IncoherentMatrix) :" << endl;
-			break;
-		default:
-			break;
-		}
-		cout << "Zadajte prvu strukturu pre testovanie: ";
-		cin >> ads1;
-		if (tested == 2)
-		{
-			cout << "Zadajte druhu strukturu pre testovanie: ";
-			cin >> ads2;
-		}
-	
-		if ((ads1 >= 0 && tested == 1 ) || (ads1 >= 0 && ads2 >= 0 && tested == 2))
-		{
-			break;
-		}
-		cout << "Niektore zadane udaje boli neplatne!" << endl;
-	}
-
-	if (lastStructure == 99)
-	{
-		++lastStructure;
-	}
-	newfile << ++lastStructure << endl;
-	newfile << adt << endl;
-	newfile << ads1 << endl;
-	newfile << ads2 << endl;
-	newfile << ";" << endl;
-
-	return lastStructure;
-}
-
-void ADTTests::testForStructure(Scenarios* scenario, int adt, int ads1)
-{
-	TestArrayList<int> testAL;
-	TestLinkedList<int> testLL;
-	TestBidirectionalCyclicLinkedList<int> testBCLL;
-	TestHeap<int> testH;
-	TestPriorityQueueSortedArrayList<int> testPQSAL;
-	TestCoherentMatrix<int> testCM;
-	TestIncoherentMatrix<int> testIM;
-
-
-	switch (adt)
-	{
-	case 0: case 3:
-		switch (ads1)
-		{
-		case 0:
-			cout << "Testujem ArrayList..." << endl;
-			testAL.test(scenario);
-			break;
-		case 1:
-			cout << "Testujem LinkedList..." << endl;
-			testLL.test(scenario);
-			break;
-		case 2:
-			cout << "Testujem BidirectionalCyclicLinkedList..." << endl;
-			testBCLL.test(scenario);
-			break;
-		default:
-			break;
-		}
-		break;
-	case 1:
-		switch (ads1)
-		{
-		case 0:
-			cout << "Testujem Heap..." << endl;
-			testH.test(scenario);
-			break;
-		case 1:
-			cout << "Testujem TestPriorityQueueSortedArrayList..." << endl;
-			testPQSAL.test(scenario);
-			break;
-		default:
-			break;
-		}
-		break;
-	case 2:
-		switch (ads1)
-		{
-		case 0:
-			cout << "Testujem CoherentMatrix..." << endl;
-			testCM.test(scenario);
-			break;
-		case 1:
-			cout << "Testujem TestIncoherentMatrix..." << endl;
-			testIM.test(scenario);
-			break;
-		default:
-			break;
-		}
-		break;
-	default:
-		break;
-	}
-
-	testAL.~TestArrayList();
-	testLL.~TestLinkedList();
-	testBCLL.~TestBidirectionalCyclicLinkedList();
-	testH.~TestHeap();
-	testPQSAL.~TestPriorityQueueSortedArrayList();
-	testCM.~TestCoherentMatrix();
-	testIM.~TestIncoherentMatrix();
-}
-
-const char* ADTTests::getADTName(int adt, int ads)
-{
-	const char* adtName = "default";
-	switch (adt)
+	switch (structure)
 	{
 	case 0:
-		adtName = "List";
+		cout << "-------------------------------------------------------------------------------------------------" << endl;
+		cout << "|                        Pre vytvorenie vlastneho scenara zadajte 'novy'                        |" << endl;
+		cout << "-------------------------------------------------------------------------------------------------" << endl;
+
 		break;
-	case 1:
-		adtName = "Prior.Queue";
+	case 1: case 2:
+		cout << "---------------------------------------------------------------------------------" << endl;
+		cout << "|                 Pre vytvorenie vlastneho scenara zadajte 'novy'               |" << endl;
+		cout << "---------------------------------------------------------------------------------" << endl;
+
 		break;
-	case 2:
-		adtName = "Matrix";
+
+	case 3:
+		cout << "------------------------------------------------------------------------------------------------------------------------" << endl;
+		cout << "|                                   Pre vytvorenie vlastneho scenara zadajte 'novy'                                    |" << endl;
+		cout << "------------------------------------------------------------------------------------------------------------------------" << endl;
 		break;
 	default:
 		break;
 	}
-	getADSName(adt, ads);
-	return adtName;
+
+	delete reader;
+	delete reader2;
+	return 0;
 }
 
-const char* ADTTests::getADSName(int adt, int ads)
-{
-	const char* adsName = "default";
-	switch (adt)
-	{
-	case 0:
-		switch (ads)
-		{
-		case 0:
-			adsName = "ArrayList";
-			break;
-		case 1:
-			adsName = "LinkedList";
-			break;
-		case 2:
-			adsName = "BCLinkedList";
-			break;
-		default:
-			break;
-		}
-		break;
-	case 1:
-		switch (ads)
-		{
-		case 0:
-			adsName = "Left.Heap";
-			break;
-		case 1:
-			adsName = "PQSortedAL";
-			break;
-		default:
-			break;
-		}
-		break;
-	case 2:
-		switch (ads)
-		{
-		case 0:
-			adsName = "Coher.Matrix";
-			break;
-		case 1:
-			adsName = "Incoh.Matrix";
-			break;
-		default:
-			break;
-		}
-		break;
-	default:
-		break;
-	}
-	return adsName;
-}
-
-void ADTTests::readFromFile(fstream& newfile, const char* fileName)
-{
-	string line;
-	while (getline(newfile, line)) {
-
-		testsList_->add(atoi(line.c_str()));
-		getline(newfile, line);
-		ADTToTest_->add(atoi(line.c_str()));
-		getline(newfile, line);
-		firstADSToTest_->add(atoi(line.c_str()));
-		getline(newfile, line);
-		secondADSToTest_->add(atoi(line.c_str()));
-		getline(newfile, line);
-	}
-}
-
-void ADTTests::clearAllLists()
-{
-	testsList_->clear();
-	ADTToTest_->clear();
-	firstADSToTest_->clear();
-	secondADSToTest_->clear();
-}
 
 ADTTests::~ADTTests()
 {
-	delete testsList_;
-	testsList_ = nullptr;
-	delete ADTToTest_;
-	ADTToTest_ = nullptr;
-	delete firstADSToTest_;
-	firstADSToTest_ = nullptr;
-	delete secondADSToTest_;
-	secondADSToTest_ = nullptr;
+	delete scenariosForADT_;
+	scenariosForADT_ = nullptr;
 }

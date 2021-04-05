@@ -1,6 +1,7 @@
 #pragma once
 
 #include "priority_queue_list.h"
+#include "../list/array_list.h"
 
 namespace structures
 {
@@ -82,23 +83,20 @@ namespace structures
 	template<typename T>
 	void PriorityQueueUnsortedArrayList<T>::push(const int priority, const T& data)
 	{
-		//TODO 06: PriorityQueueUnsortedArrayList
-		list_->add(new PriorityQueueItem<T>(priority,data));
+		this->list_->add(new PriorityQueueItem<T>(priority,data));
 	}
 
 	template<typename T>
 	inline T PriorityQueueUnsortedArrayList<T>::pop()
 	{
-		//TODO 06: PriorityQueueUnsortedArrayList
+		int peekIndex = this->indexOfPeek();
 
-		int lastIndex = list_->size() - 1;
-		int peekIndex = indexOfPeek();
-		if (peekIndex != lastIndex)
-		{
-			DSRoutines::swap<PriorityQueueItem<T>*>((*list_)[peekIndex], (*list_)[lastIndex]);
-		}
-		PriorityQueueItem<T>* deleted = list_->removeAt(lastIndex);
-		T data = deleted->accessData();
+		PriorityQueueItem<T>* bestItem = (*list_)[peekIndex];
+		DSRoutines::swap((*this->list_)[peekIndex], (*this->list_)[this->list_->size() - 1]);
+
+	
+		this->list_->removeAt(list_->size() - 1);
+		T data = bestItem->accessData();
 		delete deleted;
 		return data;
 

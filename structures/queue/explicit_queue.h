@@ -83,7 +83,6 @@ namespace structures
 	template<typename T>
 	ExplicitQueue<T>::~ExplicitQueue()
 	{
-		//TODO 05: ExplicitQueue
 		delete list_;
 		list_ = nullptr;
 	}
@@ -101,7 +100,6 @@ namespace structures
 	template<typename T>
 	inline ExplicitQueue<T>& ExplicitQueue<T>::operator=(const ExplicitQueue<T>& other)
 	{
-		//TODO 05: ExplicitQueue
 		if (this != &other)
 		{
 			*list_ = *other.list_;
@@ -118,42 +116,36 @@ namespace structures
 	template<typename T>
 	size_t ExplicitQueue<T>::size() const
 	{
-		//TODO 05: ExplicitQueue
 		return list_->size();
 	}
 
 	template<typename T>
 	inline void ExplicitQueue<T>::clear()
 	{
-		//TODO 05: ExplicitQueue
 		list_->clear();
 	}
 
 	template<typename T>
 	inline void ExplicitQueue<T>::push(const T& data)
 	{
-		//TODO 05: ExplicitQueue
 		list_->add(data);
 	}
 
 	template<typename T>
 	inline T ExplicitQueue<T>::pop()
 	{
-		//TODO 05: ExplicitQueue
 		list_->removeAt(0);
 	}
 
 	template<typename T>
 	inline T& ExplicitQueue<T>::peek()
 	{
-		//TODO 05: ExplicitQueue
 		return (*list_)[0];
 	}
 
 	template<typename T>
 	inline const T ExplicitQueue<T>::peek() const
 	{
-		//TODO 05: ExplicitQueue
 		return (*list_)[0];
 	}
 }

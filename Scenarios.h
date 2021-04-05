@@ -1,9 +1,12 @@
 #pragma once
 
-#include "structures/array/array.h"
-#include "structures/list/linked_list.h"
 #include <fstream>
 #include <iostream>
+
+#include "structures/heap_monitor.h"
+#include "structures/array/array.h"
+#include "structures/list/linked_list.h"
+#include "structureTypes.h"
 
 
 using namespace std;
@@ -14,31 +17,18 @@ class Scenarios {
 public:
 
 	Scenarios();
-	char createNewScenario(int structure, fstream& newfile, char scenarioChar);
-	int getOperation(int index);
-	int getOperationsSize();
-	int getRows();
-	int getColumns();
-	int getMatrixOperation();
-	void chooseScenario(int structure);
-	void scenarioFillOperations(int countO, int insertO, int deleteO, int getSetO, int indexO);
-	void scenarioForMatrix(int operation, int rowsMax, int colsMax);
-	void copyAndShuffleOperations(int countO, Array<int>* ratio);
-	void readFromFile(fstream& newfile, const char* fileName);
-	void clearAllLists();
-	
+	Scenarios(Array<short int>* data, int structureType);
+	structureTypes getType();
+	Array<short int>* getDataFromFile();
+
+	virtual int getOperationData() = 0;
+	string saveScenario(string toSave);
+
 	~Scenarios();
 
-private:
-	Array<int>* operations_ = nullptr;
-	int matrixRows_ = 0;
-	int matrixColumns_ = 0;
-	int matrixOperation_ = 0;
-	LinkedList<char>* scenariosList_;
-	LinkedList<int>* structuresList_;
-	LinkedList<int>* operationsCount_;
-	LinkedList<int>* firstGroupOperations_;
-	LinkedList<int>* secondGroupOperations_;
-	LinkedList<int>* thirdGroupOperations_;
-	LinkedList<int>* fourthGroupOperations_;
+protected:
+
+	Array<short int>* dataFromFile_;
+	structureTypes type_;
+
 };

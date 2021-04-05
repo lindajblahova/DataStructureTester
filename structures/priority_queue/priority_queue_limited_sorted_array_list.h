@@ -18,6 +18,14 @@ namespace structures
 		/// <param name = "other"> Prioritny front implementovany utriednym ArrayList-om s obmedzenou kapacitou, z ktoreho sa prevezmu vlastnosti. </param>
 		PriorityQueueLimitedSortedArrayList(const PriorityQueueLimitedSortedArrayList<T>& other);
 
+		/// <summary> Moj konstruktor s nastavenim kapacity. </summary>
+		/// <param name = "capacity"> Obmedzena kapacita. </param>
+		PriorityQueueLimitedSortedArrayList(size_t capacity);
+
+		/// <summary> Getter pre kapacitu. </summary>
+		/// <returns> Kapacita. </returns>
+		size_t getCapacity() const;
+
 		/// <summary> Operacia klonovania. Vytvori a vrati duplikat udajovej struktury. </summary>
 		/// <returns> Ukazovatel na klon struktury. </returns>
 		Structure* clone() const override;
@@ -63,6 +71,7 @@ namespace structures
 		/// <returns> true, ak sa kapacitu podarilo zmenit, false inak. </returns>
 		bool trySetCapacity(size_t capacity);
 
+
 	private:
 		/// <summary> Kapacita prioritneho frontu. </summary>
 		size_t capacity_;
@@ -83,6 +92,18 @@ namespace structures
 	}
 
 	template<typename T>
+	inline PriorityQueueLimitedSortedArrayList<T>::PriorityQueueLimitedSortedArrayList(size_t capacity) :
+		capacity_(capacity)
+	{
+	}
+
+	template<typename T>
+	inline size_t PriorityQueueLimitedSortedArrayList<T>::getCapacity() const
+	{
+		return capacity_;
+	}
+
+	template<typename T>
 	Structure* PriorityQueueLimitedSortedArrayList<T>::clone() const
 	{
 		return new PriorityQueueLimitedSortedArrayList<T>(*this);
@@ -97,35 +118,57 @@ namespace structures
 	template<typename T>
 	inline PriorityQueueLimitedSortedArrayList<T>& PriorityQueueLimitedSortedArrayList<T>::operator=(const PriorityQueueLimitedSortedArrayList<T>& other)
 	{
-		//TODO 06: PriorityQueueLimitedSortedArrayList
-		throw std::exception("PriorityQueueLimitedSortedArrayList<T>::operator=: Not implemented yet.");
+		if (this != &other)
+		{
+			PriorityQueueSortedArrayList<T>::operator=(other);
+			capacity_ = other.capacity_;
+		}
+		return *this;
 	}
 
 	template<typename T>
 	void PriorityQueueLimitedSortedArrayList<T>::push(const int priority, const T & data)
 	{
-		//TODO 06: PriorityQueueLimitedSortedArrayList
-		throw std::exception("PriorityQueueLimitedSortedArrayList<T>::push: Not implemented yet.");
+		if (this->size() >=  capacity_)
+		{
+			throw std::logic_error("Priority queue is full!");
+		}
+		PriorityQueueSortedArrayList<T>::push(priority, data);
 	}
 
 	template<typename T>
 	inline PriorityQueueItem<T>* PriorityQueueLimitedSortedArrayList<T>::pushAndRemove(const int priority, const T & data)
 	{
-		//TODO 06: PriorityQueueLimitedSortedArrayList
-		throw std::exception("PriorityQueueLimitedSortedArrayList<T>::pushAndRemove: Not implemented yet.");
+		PriorityQueueItem<T>* deleted = nullptr;
+		PriorityQueueSortedArrayList<T>::push(priority, data);
+		
+		if (this->size() > capacity_)
+		{
+			deleted = PriorityQueueSortedArrayList<T>::list_->removeAt(0);
+		}
+		return deleted;
 	}
 
 	template<typename T>
 	inline int PriorityQueueLimitedSortedArrayList<T>::minPriority() const
 	{
-		//TODO 06: PriorityQueueLimitedSortedArrayList
-		throw std::exception("PriorityQueueLimitedSortedArrayList<T>::minPriority: Not implemented yet.");
+		if (this->size() <= 0)
+		{
+			return -1;
+		}
+		return (*PriorityQueueLimitedSortedArrayList::list_)[0]->getPriority();
 	}
 
 	template<typename T>
 	inline bool PriorityQueueLimitedSortedArrayList<T>::trySetCapacity(size_t capacity)
 	{
-		//TODO 06: PriorityQueueLimitedSortedArrayList
-		throw std::exception("PriorityQueueLimitedSortedArrayList<T>::trySetCapacity: Not implemented yet.");
+		if (capacity < this->size())
+		{
+			return false;
+		}
+
+		capacity_ = capacity;
+		return true;
 	}
+
 }

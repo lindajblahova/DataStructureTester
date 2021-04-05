@@ -101,14 +101,13 @@ namespace structures
 	template<typename T>
 	void Heap<T>::push(const int priority, const T& data)
 	{
-		//TODO 06: Heap
 		this->list_->add(new PriorityQueueItem<T>(priority, data));
-		int currentInd = static_cast<int>(this->list_->size() - 1);
+		int currentInd = this->list_->size() - 1;
 		int parentInd = getParentIndex(currentInd);
 
-		while (parentInd >= 0 && priority < (*this->list_)[parentInd]->getPriority())
+		while (parentInd != -1 && (*this->list_)[currentInd]->getPriority() < (*this->list_)[parentInd]->getPriority())
 		{
-			DSRoutines::swap((*this->list_)[parentInd], (*this->list_)[currentInd]);
+			DSRoutines::swap((*this->list_)[currentInd], (*this->list_)[parentInd]);
 			currentInd = parentInd;
 			parentInd = getParentIndex(currentInd);
 		}
@@ -117,63 +116,66 @@ namespace structures
 	template<typename T>
 	T Heap<T>::pop()
 	{
-		//TODO 06: Heap
-		DSRoutines::swap((*this->list_)[0], (*this->list_)[static_cast<int>(this->list_->size()) - 1]);
-		PriorityQueueItem<T>* removed = this->list_->removeAt(this->list_->size() - 1);
-		if (this->list_->size() != 0)
+		PriorityQueueItem<T>* bestItem = (*this->list_)[0];
+
+		DSRoutines::swap((*this->list_)[0], (*this->list_)[this->list_->size() - 1]);
+		this->list_->removeAt(this->list_->size() - 1);
+
+		int currentInd = 0;
+		int sonInd = getGreaterSonIndex(currentInd);
+
+		while (sonInd != -1 && (*this->list_)[currentInd]->getPriority() > (*this->list_)[sonInd]->getPriority())
 		{
-			int currentInd = 0;
-			int sonInd = getGreaterSonIndex(currentInd);
-			while (sonInd != -1 && ((*this->list_)[sonInd])->getPriority() < ((*this->list_)[currentInd])->getPriority())
-			{
-				DSRoutines::swap((*this->list_)[currentInd], (*this->list_)[sonInd]);
-				currentInd = sonInd;
-				sonInd = getGreaterSonIndex(currentInd);
-			}
+			DSRoutines::swap((*this->list_)[currentInd], (*this->list_)[sonInd]);
+			currentInd = sonInd;
+			sonInd = getGreaterSonIndex(currentInd);
 		}
-		T data = removed->accessData();
-		delete removed;
+
+		T data = bestItem->accessData();
+		delete bestItem;
 		return data;
 	}
 
 	template<typename T>
 	inline int Heap<T>::getParentIndex(const int index)
 	{
-		//TODO 06: Heap
-		return (index - 1) / 2;
+		// koren == 1
+		// otec(i) = i / 2
+		// 
+		// koren == 0
+		// (i+1)/2 - 1
+		return ((index + 1) / 2 - 1);
 	}
 
 	template<typename T>
 	inline int Heap<T>::getGreaterSonIndex(const int index)
 	{
-		//TODO 06: Heap
 		int leftSonInd = 2 * index + 1;
 		int rightSonInd = 2 * index + 2;
-		if (leftSonInd >= this->list_->size())
+
+		PriorityQueueItem<T>* sonLeft = leftSonInd < this->list_->size() ? (*this->list_)[leftSonInd] : nullptr;
+		PriorityQueueItem<T>* sonRight = rightSonInd < this->list_->size() ? (*this->list_)[rightSonInd] : nullptr;
+
+		if (sonLeft == nullptr && sonRight == nullptr)
 		{
 			return -1;
 		}
+		if (sonLeft != nullptr && sonRight != nullptr)
+		{
+			return sonLeft->getPriority() < sonRight->getPriority() ? leftSonInd : rightSonInd;
+		}
 		else
 		{
-			if (leftSonInd >= this->list_->size())
-			{
-				return leftSonInd;
-			}
-			else
-			{
-				return ((*this->list_)[leftSonInd])->getPriority() <= ((*this->list_)[rightSonInd])->getPriority()
-					? leftSonInd : rightSonInd;
-			}
+			return leftSonInd;
 		}
 	}
 
 	template<typename T>
 	inline int Heap<T>::indexOfPeek() const
 	{
-		//TODO 06: Heap
 		if (this->list_->isEmpty())
 		{
-			throw std::logic_error("Heap<T>::indexOfPeek: Priority queue is empty.");
+			throw std::logic_error("Heap is empty.");
 		}
 
 		return 0;

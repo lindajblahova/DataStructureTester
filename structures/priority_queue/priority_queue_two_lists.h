@@ -18,9 +18,12 @@ namespace structures
 		PriorityQueueTwoLists();
 
 		PriorityQueueTwoLists(const PriorityQueueTwoLists<T>& other);
+
+		PriorityQueueTwoLists(size_t capacity);
+
 		~PriorityQueueTwoLists();
 
-		Structure* clone() const override;
+		virtual Structure* clone() const = 0;
 
 		/// <summary> Operator priradenia. </summary>
 		/// <param name = "other"> Prioritny front, z ktoreho ma prebrat vlastnosti. </param>
@@ -61,7 +64,10 @@ namespace structures
 		/// <exception cref="std::logic_error"> Vyhodena, ak je prioritny front implementovany dvojzoznamom prazdny. </exception>  
 		int peekPriority() const override;
 	
-	private:
+	protected:
+		virtual int setCustomCapacity() = 0;
+
+	protected:
 		/// <summary> Smernik na prioritny front ako implementovany utriednym ArrayList-om s obmedzenou kapacitou . </summary>
 		/// <remarks> Z pohladu dvojzoznamu sa jedna o kratsi utriedeny zoznam. </remarks>
 		PriorityQueueLimitedSortedArrayList<T>* shortList_;
@@ -85,15 +91,19 @@ namespace structures
 	}
 
 	template<typename T>
-	PriorityQueueTwoLists<T>::~PriorityQueueTwoLists()
+	inline PriorityQueueTwoLists<T>::PriorityQueueTwoLists(size_t capacity) : PriorityQueueTwoLists()
 	{
-		//TODO 06: PriorityQueueTwoLists
+		shortList_->trySetCapacity(capacity);
 	}
 
 	template<typename T>
-	Structure * PriorityQueueTwoLists<T>::clone() const
+	PriorityQueueTwoLists<T>::~PriorityQueueTwoLists()
 	{
-		return new PriorityQueueTwoLists<T>(*this);
+		clear();
+		delete shortList_;
+		delete longList_;
+		shortList_ = nullptr;
+		longList_ = nullptr;
 	}
 
 	template<typename T>
@@ -105,22 +115,28 @@ namespace structures
 	template<typename T>
 	PriorityQueueTwoLists<T>& PriorityQueueTwoLists<T>::operator=(const PriorityQueueTwoLists<T>& other)
 	{
-		//TODO 06: PriorityQueueTwoLists
-		throw std::exception("PriorityQueueTwoLists<T>::operator=: Not implemented yet.");
+		if (this != &other)
+		{
+			clear();
+			*shortList_ = *other.shortList_;
+			for (PriorityQueueItem<T>* newItem : *other.longList_)
+			{
+				longList_->add(new PriorityQueueItem<T>(*newItem));
+			}
+		}
+		return *this;
 	}
 
 	template<typename T>
 	size_t PriorityQueueTwoLists<T>::size() const
 	{
-		//TODO 06: PriorityQueueTwoLists
-		return dynamic_cast<PriorityQueue<T>*>(shortList_)->size() + longList_->size();
+		return shortList_->size() + longList_->size();
 	}
 
 	template<typename T>
 	void PriorityQueueTwoLists<T>::clear()
 	{
-		//TODO 06: PriorityQueueTwoLists
-		dynamic_cast<PriorityQueue<T>*>(shortList_)->clear();
+		shortList_->clear();
 		
 		for (PriorityQueueItem<T>* deleted : *longList_)
 		{
@@ -132,14 +148,14 @@ namespace structures
 	template<typename T>
 	void PriorityQueueTwoLists<T>::push(const int priority, const T & data)
 	{
-		//TODO 06: PriorityQueueTwoLists
-		if (longList_->size() == 0 || shortList_->minPriority() >= priority)
+		if (shortList_->minPriority() > priority || longList_->isEmpty())
 		{
 			PriorityQueueItem<T>* chosen = shortList_->pushAndRemove(priority, data);
 			if (chosen != nullptr)
 			{
 				longList_->add(chosen);
 			}
+
 		}
 		else
 		{
@@ -150,17 +166,14 @@ namespace structures
 	template<typename T>
 	T PriorityQueueTwoLists<T>::pop()
 	{
-		//TODO 06: PriorityQueueTwoLists
-		T data = dynamic_cast<PriorityQueueList<T>*>(shortList_)->pop();
-		if (longList_->size() != 0 && dynamic_cast<PriorityQueueList<T>*>(shortList_)->size() == 0)
+		T data = shortList_->pop();
+		if (shortList_->isEmpty() && !longList_->isEmpty())
 		{
-			size_t newSize = 4;
-			newSize = newSize > longList_->size() ? 2 : (size_t)sqrt(longList_->size());
-			shortList_->trySetCapacity(newSize);
+			shortList_->trySetCapacity(setCustomCapacity());
 
 			LinkedList<PriorityQueueItem<T>*>* tmpLL = new LinkedList<PriorityQueueItem<T>*>();
 
-			while (longList_->size() > 0)
+			while (!longList_->isEmpty())
 			{
 				PriorityQueueItem<T>* removed = longList_->removeAt(0);
 				PriorityQueueItem<T>* pushed = shortList_->pushAndRemove(removed->getPriority(), removed->accessData());
@@ -180,21 +193,18 @@ namespace structures
 	template<typename T>
 	T & PriorityQueueTwoLists<T>::peek()
 	{
-		//TODO 06: PriorityQueueTwoLists
-		return dynamic_cast<PriorityQueueList<T>*>(shortList_)->peek();
+		return shortList_->peek();
 	}
 
 	template<typename T>
 	const T PriorityQueueTwoLists<T>::peek() const
 	{
-		//TODO 06: PriorityQueueTwoLists
-		return dynamic_cast<PriorityQueueList<T>*>(shortList_)->peek();
+		return shortList_->peek();
 	}
 
 	template<typename T>
 	int PriorityQueueTwoLists<T>::peekPriority() const
 	{
-		//TODO 06: PriorityQueueTwoLists
-		return dynamic_cast<PriorityQueueList<T>*>(shortList_)->peekPriority();
+		return shortList_->peekPriority();
 	}
 }

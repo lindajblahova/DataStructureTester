@@ -28,23 +28,11 @@
     <Filter Include="Header Files\tests">
       <UniqueIdentifier>{f75dbfab-e590-4d90-8ee2-baead8b9c04a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\tests\scenarios">
-      <UniqueIdentifier>{495c1fa4-9282-4247-837b-1f24e6a32f27}</UniqueIdentifier>
-    </Filter>
     <Filter Include="structures\priority_queue">
       <UniqueIdentifier>{ff76d24f-b370-4223-956b-e18fd6755b4e}</UniqueIdentifier>
     </Filter>
     <Filter Include="structures\matrix">
       <UniqueIdentifier>{69772bbe-8ee8-4f08-b8b0-c97c4a8c757e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\tests\list">
-      <UniqueIdentifier>{2ce7593e-ebd3-49f2-bf52-e5ec9d2c9124}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\tests\priority_queue">
-      <UniqueIdentifier>{096fb145-2761-40a7-87ca-85cc2d970eec}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\tests\matrix">
-      <UniqueIdentifier>{d31a64a3-fb80-4243-81fd-03000b0ee22e}</UniqueIdentifier>
     </Filter>
     <Filter Include="structures\stack">
       <UniqueIdentifier>{f463fb44-81fe-41cb-9b31-0ce0a1fdb8ca}</UniqueIdentifier>
@@ -55,15 +43,45 @@
     <Filter Include="Header Files\tests\adt_tests">
       <UniqueIdentifier>{e18ac861-0d8f-4c64-82c7-6cbb11bd84ba}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\tests\test">
+      <UniqueIdentifier>{7dfaab85-021c-42ee-843a-d81c06815b60}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="structures\set">
+      <UniqueIdentifier>{f43f75ad-a84c-4f37-be9a-e89f02b14ad8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\scenarios">
+      <UniqueIdentifier>{495c1fa4-9282-4247-837b-1f24e6a32f27}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\scenarios\other">
+      <UniqueIdentifier>{f353a7a4-e6ab-4aa6-9ab6-ea29b030f077}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\scenarios\other\bitmap">
+      <UniqueIdentifier>{cc74b98e-f62a-4432-ac32-b67aa072127d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\scenarios\matrix">
+      <UniqueIdentifier>{8826e374-10df-4823-881d-ad9ba78c32a4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\enumTypes">
+      <UniqueIdentifier>{ad7005cd-e74b-4bfc-93ab-a75a2dd99d04}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\tests\test\list">
+      <UniqueIdentifier>{2ce7593e-ebd3-49f2-bf52-e5ec9d2c9124}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\tests\test\matrix">
+      <UniqueIdentifier>{d31a64a3-fb80-4243-81fd-03000b0ee22e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\tests\test\priority_queue">
+      <UniqueIdentifier>{096fb145-2761-40a7-87ca-85cc2d970eec}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\tests\test\set">
+      <UniqueIdentifier>{58793252-edaf-428d-b8dc-5b02c2b6f149}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Main.cpp">
+    <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="structures\ds_routines.cpp">
-      <Filter>structures</Filter>
-    </ClCompile>
-    <ClCompile Include="structures\memory_routines.cpp">
       <Filter>structures</Filter>
     </ClCompile>
     <ClCompile Include="structures\structure.cpp">
@@ -72,11 +90,23 @@
     <ClCompile Include="structures\vector\vector.cpp">
       <Filter>structures\vector</Filter>
     </ClCompile>
-    <ClCompile Include="Scenarios.cpp">
-      <Filter>Header Files\tests\scenarios</Filter>
-    </ClCompile>
     <ClCompile Include="ADTTests.cpp">
       <Filter>Header Files\tests\adt_tests</Filter>
+    </ClCompile>
+    <ClCompile Include="Scenarios.cpp">
+      <Filter>Header Files\scenarios</Filter>
+    </ClCompile>
+    <ClCompile Include="ScenariosMatrix.cpp">
+      <Filter>Header Files\scenarios\matrix</Filter>
+    </ClCompile>
+    <ClCompile Include="ScenariosOther.cpp">
+      <Filter>Header Files\scenarios\other</Filter>
+    </ClCompile>
+    <ClCompile Include="ScenariosOtherBitMap.cpp">
+      <Filter>Header Files\scenarios\other\bitmap</Filter>
+    </ClCompile>
+    <ClCompile Include="structures\set\bitmap.cpp">
+      <Filter>structures\set</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -113,9 +143,6 @@
     <ClInclude Include="structures\ds_structure_types.h">
       <Filter>structures</Filter>
     </ClInclude>
-    <ClInclude Include="Scenarios.h">
-      <Filter>Header Files\tests\scenarios</Filter>
-    </ClInclude>
     <ClInclude Include="structures\priority_queue\heap.h">
       <Filter>structures\priority_queue</Filter>
     </ClInclude>
@@ -141,31 +168,31 @@
       <Filter>structures\priority_queue</Filter>
     </ClInclude>
     <ClInclude Include="TestList.h">
-      <Filter>Header Files\tests\list</Filter>
+      <Filter>Header Files\tests\test\list</Filter>
     </ClInclude>
     <ClInclude Include="TestArrayList.h">
-      <Filter>Header Files\tests\list</Filter>
+      <Filter>Header Files\tests\test\list</Filter>
     </ClInclude>
     <ClInclude Include="TestLinkedList.h">
-      <Filter>Header Files\tests\list</Filter>
+      <Filter>Header Files\tests\test\list</Filter>
     </ClInclude>
     <ClInclude Include="TestPriorityQueue.h">
-      <Filter>Header Files\tests\priority_queue</Filter>
+      <Filter>Header Files\tests\test\priority_queue</Filter>
     </ClInclude>
     <ClInclude Include="TestPriorityQueueSortedArrayList.h">
-      <Filter>Header Files\tests\priority_queue</Filter>
+      <Filter>Header Files\tests\test\priority_queue</Filter>
     </ClInclude>
     <ClInclude Include="TestHeap.h">
-      <Filter>Header Files\tests\priority_queue</Filter>
+      <Filter>Header Files\tests\test\priority_queue</Filter>
     </ClInclude>
     <ClInclude Include="TestMatrix.h">
-      <Filter>Header Files\tests\matrix</Filter>
+      <Filter>Header Files\tests\test\matrix</Filter>
     </ClInclude>
     <ClInclude Include="TestCoherentMatrix.h">
-      <Filter>Header Files\tests\matrix</Filter>
+      <Filter>Header Files\tests\test\matrix</Filter>
     </ClInclude>
     <ClInclude Include="TestIncoherentMatrix.h">
-      <Filter>Header Files\tests\matrix</Filter>
+      <Filter>Header Files\tests\test\matrix</Filter>
     </ClInclude>
     <ClInclude Include="structures\matrix\coherent_matrix.h">
       <Filter>structures\matrix</Filter>
@@ -198,10 +225,55 @@
       <Filter>structures\queue</Filter>
     </ClInclude>
     <ClInclude Include="TestBidirectionalCyclicLinkedList.h">
-      <Filter>Header Files\tests\list</Filter>
+      <Filter>Header Files\tests\test\list</Filter>
     </ClInclude>
     <ClInclude Include="ADTTests.h">
       <Filter>Header Files\tests\adt_tests</Filter>
+    </ClInclude>
+    <ClInclude Include="Test.h">
+      <Filter>Header Files\tests\test</Filter>
+    </ClInclude>
+    <ClInclude Include="Scenarios.h">
+      <Filter>Header Files\scenarios</Filter>
+    </ClInclude>
+    <ClInclude Include="ScenariosMatrix.h">
+      <Filter>Header Files\scenarios\matrix</Filter>
+    </ClInclude>
+    <ClInclude Include="ScenariosOther.h">
+      <Filter>Header Files\scenarios\other</Filter>
+    </ClInclude>
+    <ClInclude Include="structures\priority_queue\priority_queue_two_lists_half_capacity.h">
+      <Filter>structures\priority_queue</Filter>
+    </ClInclude>
+    <ClInclude Include="structures\priority_queue\priority_queue_two_lists_limited_capacity.h">
+      <Filter>structures\priority_queue</Filter>
+    </ClInclude>
+    <ClInclude Include="TestTwoListsSqrtCapacity.h">
+      <Filter>Header Files\tests\test\priority_queue</Filter>
+    </ClInclude>
+    <ClInclude Include="TestTwoListsHalfCapacity.h">
+      <Filter>Header Files\tests\test\priority_queue</Filter>
+    </ClInclude>
+    <ClInclude Include="TestTwoListsLimitedCapacity.h">
+      <Filter>Header Files\tests\test\priority_queue</Filter>
+    </ClInclude>
+    <ClInclude Include="ScenariosOtherBitMap.h">
+      <Filter>Header Files\scenarios\other\bitmap</Filter>
+    </ClInclude>
+    <ClInclude Include="TestSet.h">
+      <Filter>Header Files\tests\test\set</Filter>
+    </ClInclude>
+    <ClInclude Include="structures\set\bitmap.h">
+      <Filter>structures\set</Filter>
+    </ClInclude>
+    <ClInclude Include="structureTypes.h">
+      <Filter>Header Files\enumTypes</Filter>
+    </ClInclude>
+    <ClInclude Include="structures\priority_queue\priority_queue_two_lists_sqrt_capacity.h">
+      <Filter>structures\priority_queue</Filter>
+    </ClInclude>
+    <ClInclude Include="TestBitmap.h">
+      <Filter>Header Files\tests\test\set</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

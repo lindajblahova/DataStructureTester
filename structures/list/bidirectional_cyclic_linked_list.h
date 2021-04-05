@@ -137,16 +137,22 @@ namespace structures
 	private:
 		/// <summary> Pocet prvkov v zozname. </summary>
 		size_t size_;
+
 		/// <summary> Prvy prvok zoznamu. </summary>
 		BCLinkedListItem<T>* first_;
-		/// <summary> Posledny prvok zoznamu. </summary>
-		BCLinkedListItem<T>* last_;
+
 	private:
+
+		/// <summary> Vrati posledny prvok zoznamu. </summary>
+		/// <returns> Posledny prvok zoznamu. </param>
+		BCLinkedListItem<T>* getLastItem() const;
+
 		/// <summary> Vrati prvok zoznamu na danom indexe. </summary>
 		/// <param name = "index"> Pozadovany index. </summary>
 		/// <returns> Prvok zoznamu na danom indexe. </param>
 		/// <exception cref="std::out_of_range"> Vyhodena, ak index nepatri do zoznamu. </exception>  
 		BCLinkedListItem<T>* getItemAtIndex(int index) const;
+
 	private:
 		/// <summary> Iterator pre LinkedList. </summary>
 		class BCLinkedListIterator : public Iterator<T>
@@ -154,7 +160,7 @@ namespace structures
 		public:
 			/// <summary> Konstruktor. </summary>
 			/// <param name = "position"> Pozicia v zretazenom zozname, na ktorej zacina. </param>
-			BCLinkedListIterator(BCLinkedListItem<T>* position);
+			BCLinkedListIterator(BCLinkedListItem<T>* position, const BidirectionalCyclicLinkedList<T>* bcList);
 
 			/// <summary> Destruktor. </summary>
 			~BCLinkedListIterator();
@@ -182,7 +188,8 @@ namespace structures
 			/// <summary> Aktualna pozicia v zozname. </summary>
 			BCLinkedListItem<T>* position_;
 
-			bool lastPosition_;
+			const BidirectionalCyclicLinkedList<T>* bcList_;
+
 		};
 	};
 
@@ -237,8 +244,7 @@ namespace structures
 	inline BidirectionalCyclicLinkedList<T>::BidirectionalCyclicLinkedList() :
 		List<T>::List(),
 		size_(0),
-		first_(nullptr),
-		last_(nullptr)
+		first_(nullptr)
 	{
 	}
 
@@ -287,19 +293,10 @@ namespace structures
 
 			// prejdi druhy zoznam
 			// add(data z aktualneho bc linked list itemu)
-			BCLinkedListItem<T>* current = other.first_;
-
-			while (current != nullptr)
+			for (T data : other)
 			{
-				add(current->accessData());
-				current = current->getNext();
-				// ak som presla cely zoznam
-				if (current == other.first_)
-				{
-					break;
-				}
+				add(data);
 			}
-
 		}
 		return *this;
 	}
@@ -328,14 +325,12 @@ namespace structures
 		}
 		else
 		{
-			last_->setNext(newBCLLItem);
+			getLastItem()->setNext(newBCLLItem);
+			newBCLLItem->setPrevious(getLastItem());
 			first_->setPrevious(newBCLLItem);
 			newBCLLItem->setNext(first_);
-			newBCLLItem->setPrevious(last_);
-
+	
 		}
-
-		last_ = newBCLLItem;
 		size_++;
 	}
 
@@ -350,19 +345,18 @@ namespace structures
 			if (index == 0) {
 				BCLinkedListItem<T>* newBCLLItem = new BCLinkedListItem<T>(data);
 				newBCLLItem->setNext(first_);
-				newBCLLItem->setPrevious(last_);
+				newBCLLItem->setPrevious(getLastItem());
+				getLastItem()->setNext(newBCLLItem);
 				first_->setPrevious(newBCLLItem);
-				last_->setNext(newBCLLItem);
 
 				first_ = newBCLLItem;
 			}
 			else {
-				BCLinkedListItem<T>* prevLLItem = getItemAtIndex(index - 1); // moze raisnut vynimku
-				BCLinkedListItem<T>* newBCLLItem = new BCLinkedListItem<T>(data); // ale urcite uz neleaknem
+				BCLinkedListItem<T>* prevLLItem = getItemAtIndex(index - 1);
+				BCLinkedListItem<T>* newBCLLItem = new BCLinkedListItem<T>(data);
 
 				newBCLLItem->setNext(prevLLItem->getNext());
 				newBCLLItem->setPrevious(prevLLItem);
-
 				prevLLItem->getNext()->setPrevious(newBCLLItem);
 				prevLLItem->setNext(newBCLLItem);
 			}
@@ -374,9 +368,9 @@ namespace structures
 	template<typename T>
 	inline bool BidirectionalCyclicLinkedList<T>::tryRemove(const T& data)
 	{
-		int i = getIndexOf(data); // vracia -1 ak nenajde index  / O(n)
-		if (i != -1) {
-			removeAt(i);		// O(n)  -> zlozitost je 2O(n) ale da sa prerobit na O(n)
+		int index = getIndexOf(data); // vracia -1 ak nenajde index  / O(n)
+		if (index != -1) {
+			removeAt(index);		// O(n)  -> zlozitost je 2O(n) ale da sa prerobit na O(n)
 			return true;
 		}
 		else {
@@ -394,14 +388,12 @@ namespace structures
 
 			if (size_ == 1) {
 				first_ = nullptr;
-				last_ = nullptr;
 			} 
 			else
 			{
+				getLastItem()->setNext(deleted->getNext());
+				deleted->getNext()->setPrevious(getLastItem());
 				first_ = deleted->getNext();
-				last_->setNext(first_);
-				first_->setPrevious(last_);
-
 			}
 		}
 		else 
@@ -409,10 +401,6 @@ namespace structures
 			deleted = getItemAtIndex(index);
 			deleted->getNext()->setPrevious(deleted->getPrevious());
 			deleted->getPrevious()->setNext(deleted->getNext());
-
-			if (last_ == deleted) {
-				last_ = deleted->getPrevious();
-			}
 		}
 
 		T data = deleted->accessData();
@@ -420,6 +408,7 @@ namespace structures
 		size_--;
 
 		return data;
+
 	}
 
 	template<typename T>
@@ -436,6 +425,10 @@ namespace structures
 			}
 			index++;
 			current = current->getNext();
+			if (current == first_)
+			{
+				break;
+			}
 		}
 
 		return -1;
@@ -447,7 +440,7 @@ namespace structures
 	{
 		BCLinkedListItem<T>* current = first_;
 
-		while (current != nullptr)
+		while (current != nullptr )
 		{
 			BCLinkedListItem<T>* deleted = current;
 			current = current->getNext();
@@ -458,20 +451,27 @@ namespace structures
 			}
 		}
 
-		first_ = last_ = nullptr;
+		first_ = nullptr;
 		size_ = 0;
+
 	}
 
 	template<typename T>
 	inline Iterator<T>* BidirectionalCyclicLinkedList<T>::getBeginIterator() const
 	{
-		return new BCLinkedListIterator(first_);
+		return new BCLinkedListIterator(first_, this);
 	}
 
 	template<typename T>
 	inline Iterator<T>* BidirectionalCyclicLinkedList<T>::getEndIterator() const
 	{
-		return new BCLinkedListIterator(last_);
+		return new BCLinkedListIterator(nullptr, this);
+	}
+
+	template<typename T>
+	inline BCLinkedListItem<T>* BidirectionalCyclicLinkedList<T>::getLastItem() const
+	{
+		return first_->getPrevious();
 	}
 
 	template<typename T>
@@ -482,7 +482,7 @@ namespace structures
 		BCLinkedListItem<T>* result ;
 		if (index > (size_ / 2))
 		{
-			result = last_;
+			result = this->getLastItem();
 			for (int i = size_; i > index; i--) {
 				result = result->getPrevious();
 			}
@@ -498,8 +498,9 @@ namespace structures
 	}
 
 	template<typename T>
-	inline BidirectionalCyclicLinkedList<T>::BCLinkedListIterator::BCLinkedListIterator(BCLinkedListItem<T>* position) :
-		position_(position)
+	inline BidirectionalCyclicLinkedList<T>::BCLinkedListIterator::BCLinkedListIterator(BCLinkedListItem<T>* position, const BidirectionalCyclicLinkedList<T>* bcList) :
+		position_(position), 
+		bcList_(bcList)
 	{
 	}
 
@@ -507,33 +508,24 @@ namespace structures
 	inline BidirectionalCyclicLinkedList<T>::BCLinkedListIterator::~BCLinkedListIterator()
 	{
 		position_ = nullptr;
-		lastPosition_ = false;
+		bcList_ = nullptr;
 	}
 
 	template<typename T>
 	inline Iterator<T>& BidirectionalCyclicLinkedList<T>::BCLinkedListIterator::operator=(const Iterator<T>& other)
 	{
 		position_ = dynamic_cast<const BCLinkedListIterator&>(other).position_;
-		lastPosition_ = dynamic_cast<const BCLinkedListIterator&>(other).lastPosition_;
+		bcList_ = dynamic_cast<const BCLinkedListIterator&>(other).bcList_;
+
 		return *this;
 	}
 
 	template<typename T>
 	inline bool BidirectionalCyclicLinkedList<T>::BCLinkedListIterator::operator!=(const Iterator<T>& other)
 	{
-		//TODO 04: LinkedList<T>::LinkedListIterator
-		if (lastPosition_ && position_ != nullptr)
-		{
-			return true;
-		}
-
-		if (position_ == nullptr)
-		{
-			lastPosition_ = true;
-			return false;
-		}
-
-		return (position_ != dynamic_cast<const BCLinkedListIterator&>(other).position_);
+		
+		return (position_ != dynamic_cast<const BCLinkedListIterator&>(other).position_) ||
+			(bcList_ != dynamic_cast<const BCLinkedListIterator&>(other).bcList_);
 	}
 
 	template<typename T>
@@ -545,7 +537,14 @@ namespace structures
 	template<typename T>
 	inline Iterator<T>& BidirectionalCyclicLinkedList<T>::BCLinkedListIterator::operator++()
 	{
-		position_ = position_->getNext();
+		if (position_->getNext() != bcList_->first_)
+		{
+			position_ = position_->getNext();
+		}
+		else
+		{
+			position_ = nullptr;
+		}
 		return *this;
 	}
 }

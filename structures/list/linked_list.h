@@ -450,7 +450,7 @@ namespace structures
 	template<typename T>
 	inline Iterator<T>& LinkedList<T>::LinkedListIterator::operator=(const Iterator<T>& other)
 	{
-		//TODO 04: LinkedList<T>::LinkedListIterator
+		
 		const LinkedListIterator& otherLLI = dynamic_cast<const LinkedListIterator&>(other);
 		position_ = otherLLI.position_;
 		return *this;
@@ -459,7 +459,6 @@ namespace structures
 	template<typename T>
 	inline bool LinkedList<T>::LinkedListIterator::operator!=(const Iterator<T>& other)
 	{
-		//TODO 04: LinkedList<T>::LinkedListIterator
 		const LinkedListIterator& otherLLI = dynamic_cast<const LinkedListIterator&>(other);
 		return position_ != otherLLI.position_;
 	}
@@ -467,14 +466,12 @@ namespace structures
 	template<typename T>
 	inline const T LinkedList<T>::LinkedListIterator::operator*()
 	{
-		//TODO 04: LinkedList<T>::LinkedListIterator
 		return position_->accessData();
 	}
 
 	template<typename T>
 	inline Iterator<T>& LinkedList<T>::LinkedListIterator::operator++()
 	{
-		//TODO 04: LinkedList<T>::LinkedListIterator
 		position_ = position_->getNext();
 		return *this;
 	}

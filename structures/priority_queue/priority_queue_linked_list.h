@@ -78,7 +78,6 @@ namespace structures
 	template<typename T>
 	inline void PriorityQueueLinkedList<T>::push(const int priority, const T & data)
 	{
-		//TODO 06: PriorityQueueLinkedList
 		this->list_->add(new PriorityQueueItem<T>(priority, data));
 	}
 }
